@@ -15,7 +15,7 @@ public class Book {
         if(name == null || author == null ){
             throw new NullPointerException(
                     "Parameters for book cannot be null");
-        } else if (year < 0 || year >= Calendar.getInstance().get(Calendar.YEAR)) {
+        } else if (isValidYear(year)) {
             throw new InvalidBookException("Year needs to be greater than 0 and less than today's year");
         }
         this.name = name;
@@ -51,5 +51,8 @@ public class Book {
         return customer != null;
     }
 
+    private boolean isValidYear(int year) {
+        return year < 0 || year >= Calendar.getInstance().get(Calendar.YEAR);
+    }
 
 }

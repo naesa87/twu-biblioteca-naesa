@@ -62,4 +62,11 @@ public class BookTest {
         typicalBook.setCustomer("   ");
     }
 
+    @Test
+    public void testBookIsCheckedOut(){
+        typicalBook.setCustomer(expectedCustomer);
+        typicalBook.isCheckedOut();
+        assertEquals("Book is not checkedout", true, typicalBook.isCheckedOut());
+    }
+
 }
