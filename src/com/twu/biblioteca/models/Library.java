@@ -4,51 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-    private List<Book> availableBooks;
-    private List<Book> checkedOutBooks;
+    private List<Book> listOfBooks;
 
     public Library(){
-        this.availableBooks = new ArrayList<Book>();
-        this.checkedOutBooks = new ArrayList<Book>();
+        this.listOfBooks = new ArrayList<Book>();
     }
 
-    public Book viewBookDetails(Book book){
-        return new Book("hi","there",2000);
+    public boolean containsBook(String bookName){
+        return true; // make equal and hash for book
     }
+
+    public Book getBook(String bookName){
+        return new Book("sd","sd",1234);
+    }
+
+    public List<Book> getBooks(boolean checkedOutFlag){
+        List<Book> availableBooks = new ArrayList<Book>();
+        for (Book book: listOfBooks){
+            if (book.isCheckedOut()==checkedOutFlag){
+                availableBooks.add(book);
+            }
+        }
+        return availableBooks;
+    }
+
 
     public void checkOutBook(Book book, Customer customer){
-        // check if book in checkedoutbook , if exists --> say not available
-        // check if book is in availablebooks, if exists --> checkout
-                // checkout includes: remove from one list and add to another,
-                // give book a customer
-        // if book not exist in either --> say book not exist
+        // check if book in listOFBooks , if not exists --> say not exists
+            // check if book is checkedout --> say not available
+                // otherwise checkout: give book a customer
         // success/unsuccess msage
-
     }
 
     public void returnBook(Book book, Customer customer){
         // success/unsuccess msage
     }
 
-    private void removeBookFromAvailableBooks(Book book){
-
-    }
-
-    private void removeBookFromCheckoutBooks(Book book){
-
-    }
-
-    private void addBookToAvailableBooks(Book book){
-
-    }
-
-    private void addBookToCheckoutBooks(Book book){
-
-    }
-
-    public boolean containsBook(Book book){
-        return true; // make equal and hash for book
-    }
 
     public void createBook(String name, String author, int year, Customer customer ){
         Book book = new Book(name,author,year);
