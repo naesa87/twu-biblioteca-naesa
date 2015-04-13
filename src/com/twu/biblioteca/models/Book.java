@@ -1,7 +1,7 @@
 package com.twu.biblioteca.models;
 
 import com.twu.biblioteca.models.exceptions.InvalidBookException;
-
+import com.twu.biblioteca.helpers.StringHelper;
 import java.util.Calendar;
 
 public class Book {
@@ -24,15 +24,11 @@ public class Book {
     }
 
     public void setCustomer(String customer){
-        if (isNotWhitespace(customer)){
+        if (StringHelper.isNotWhitespace(customer)){
             this.customer = customer;
         } else {
             throw new InvalidBookException("Customer name must have characters");
         }
-    }
-
-    private boolean isNotWhitespace(String string) {
-        return string.trim().length() > 0;
     }
 
     public String name(){
@@ -46,11 +42,14 @@ public class Book {
     public int year(){
         return year;
     }
-    public boolean isCheckedOut(){
-        return customer != null;
-    }
 
     public String customer(){
         return customer;
     }
+
+    public boolean isCheckedOut(){
+        return customer != null;
+    }
+
+
 }
