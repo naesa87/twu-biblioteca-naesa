@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
-
+    
     private List<Book> listOfBooks;
 
     public Library(){
@@ -40,9 +40,12 @@ public class Library {
     public String getlistOfBooks(boolean checkedOutFlag){
         StringBuilder listOfBooksString = new StringBuilder();
         String LS = System.getProperty("line.separator");
+        listOfBooksString.append(String.format("%-60s %-30s  %15s", "NAME", "AUTHOR", "YEAR"));
+        listOfBooksString.append(LS);
         for (Book book: listOfBooks){
             if (book.isCheckedOut()==checkedOutFlag){
-                listOfBooksString.append(book);
+                listOfBooksString.append(
+                        String.format("%-60s %-30s  %15d", book.name(), book.author(), book.year()));
                 listOfBooksString.append(LS);
             }
         }

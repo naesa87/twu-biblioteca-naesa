@@ -55,16 +55,20 @@ public class LibraryTest {
 
     @Test
     public void testGetBookListCheckedOut() throws Exception{
-        String expectedString = "Harry Potter and the Philosopher's Stone by J.K. Rowling (1997) : available\n" +
-                "The Catcher in the Rye by J.D. Salinger (1951) : available\n";
+        String expectedString =
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "Harry Potter and the Philosopher's Stone                     J.K. Rowling                               1997\n" +
+                "The Catcher in the Rye                                       J.D. Salinger                              1951\n";
         assertEquals("Incorrect list",expectedString,testLibrary.getlistOfBooks(true));
     }
 
     @Test
     public void testGetBookListAvailable() throws Exception{
-        String expectedString = "The Lord of the Rings by J.R.R. Tolkien (1954) : checked out\n" +
-                "The Little Prince by Antoine de Saint-Exupéry (1943) : checked out\n" +
-                "The Hunger Games by Suzanne Collins (2008) : checked out\n";
+        String expectedString =
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n";
         assertEquals("Incorrect list",expectedString,testLibrary.getlistOfBooks(false));
     }
 
