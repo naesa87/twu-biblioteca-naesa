@@ -63,6 +63,8 @@ public class BookTest {
     public void testSetCustomerGetCustomer() throws Exception {
         typicalBook.setCustomer("John Doe");
         assertEquals("Incorrect Customer", expectedCustomer, typicalBook.customer());
+        typicalBook.setCustomer(null);
+        assertEquals("Incorrect Customer", null, typicalBook.customer());
     }
 
     @Test(expected = InvalidBookException.class, timeout=5000)

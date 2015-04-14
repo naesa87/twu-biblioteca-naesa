@@ -1,5 +1,7 @@
 package com.twu.biblioteca.models;
 
+import org.omg.CORBA.Environment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,26 +37,50 @@ public class Library {
         return !book.isCheckedOut();
     }
 
-    public List<Book> getBooks(boolean checkedOutFlag){
-        List<Book> availableBooks = new ArrayList<Book>();
+    public String getlistOfBooks(boolean checkedOutFlag){
+        StringBuilder listOfBooksString = new StringBuilder();
+        String LS = System.getProperty("line.separator");
         for (Book book: listOfBooks){
             if (book.isCheckedOut()==checkedOutFlag){
-                availableBooks.add(book);
+                listOfBooksString.append(book);
+                listOfBooksString.append(LS);
             }
         }
-        return availableBooks;
+        return listOfBooksString.toString();
     }
 
 
-    public void checkOutBook(Book book, String customer){
-        // check if book in listOFBooks , if not exists --> say not exists
-            // check if book is checkedout --> say not available
-                // otherwise checkout: give book a customer
-        // success/unsuccess msage
+    public String checkOutBook(String bookName, String customer){
+
+        if (!containsBook(bookName)){
+            return "Book does not exist in library";
+        }
+        if (!isBookAvailable(bookName)){
+            return "Book is currently unavailable for checkout";
+        }
+        try {
+            Book book = getBook(bookName);
+            book.setCustomer(customer);
+        }catch (Exception e){
+            return "Book could not be checked out";
+        }
+        return "Thank you! Enjoy the book" ;
     }
 
-    public void returnBook(Book book, String customer){
-        // success/unsuccess msage
+    public String returnBook(String bookName){
+        if (!containsBook(bookName)){
+            return "Book does not exist in library";
+        }
+        if (isBookAvailable(bookName)){
+            return "Book has already been returned";
+        }
+        try {
+            Book book = getBook(bookName);
+            book.setCustomer(null);
+        }catch (Exception e){
+            return "Book could not be returned";
+        }
+        return "Thank you for returning the book" ;
     }
 
     /*temporary loading of book data while no database is in place and no addBook method is required */

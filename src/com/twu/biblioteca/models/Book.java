@@ -24,6 +24,10 @@ public class Book {
     }
 
     public void setCustomer(String customer){
+        if (customer == null){
+            this.customer = null;
+            return;
+        }
         if (StringHelper.isNotWhitespace(customer)){
             this.customer = customer;
         } else {
