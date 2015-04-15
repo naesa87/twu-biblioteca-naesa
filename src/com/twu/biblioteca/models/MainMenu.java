@@ -7,11 +7,21 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MainMenu {
+
     private List<String> options;
+    private static final String MENU_TITLE = "MAIN MENU OPTIONS";
 
     public MainMenu(){
         this.options = new ArrayList<String>();
         options.add("List Books");
+    }
+
+    public List<String> getOptions(){
+        List<String> options = new ArrayList<String>();
+        for( String option: this.options){
+            options.add(option);
+        }
+        return options;
     }
 
     @Override
@@ -32,7 +42,5 @@ public class MainMenu {
         mainMenuString.append(StringHelper.horizontalLine());
         return mainMenuString.toString();
     }
-
-    private static final String MENU_TITLE = "MAIN MENU OPTIONS";
 
 }
