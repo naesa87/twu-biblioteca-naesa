@@ -38,8 +38,8 @@ public class BibliotecaApp {
     private static final String MENU_ERROR = "Invalid option";
     private static final String LIBRARY_PROMPT = "Please enter a command";
     private static final String LIBRARY_ERROR = "Invalid library command";
-    private static final String LIBRARY_INSTRUCTIONS = "to borrow a book enter: Checkout book name>\n"
-            +"to return a book enter: Return book name>\n"+
+    private static final String LIBRARY_INSTRUCTIONS = "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n"
+            +"to return a book enter: Return \"Book Name\" (no quotes)\n"+
             "to go back to main menu enter: back";
 
     private static final String QUIT = "quit";
@@ -77,7 +77,7 @@ public class BibliotecaApp {
         display(NAME_PROMPT);
         try {
             while (true){
-                customer = reader.readLine();
+                customer = reader.readLine().trim();
                 checkForQuitRequest(customer);
                 if (customer != null && StringHelper.isNotWhitespace(customer)){
                     display("Hi " + customer);
