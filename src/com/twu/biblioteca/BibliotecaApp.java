@@ -7,6 +7,7 @@ import com.twu.biblioteca.models.MainMenu;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BibliotecaApp {
@@ -35,9 +36,14 @@ public class BibliotecaApp {
     private static final String NAME_ERROR = "(Please type a valid name)";
     private static final String MENU_PROMPT = "Please choose a menu option";
     private static final String MENU_ERROR = "Invalid option";
-    private static final String DEFAULT_PROMPT = "Please enter a class name>";
-    private static final String ERROR_PROMPT = "Invalid.  Example:\"java.lang.String\">";
+    private static final String LIBRARY_PROMPT = "Please enter a command";
+    private static final String LIBRARY_ERROR = "Invalid library command";
+    private static final String LIBRARY_INSTRUCTIONS = "to borrow a book enter: Checkout book name>\n"
+            +"to return a book enter: Return book name>\n"+
+            "to go back to main menu enter: back";
+
     private static final String QUIT = "quit";
+    private static final List<String> LIBRARY_COMMANDS = Arrays.asList("Checkout","Return");
     private String customer;
     private Library library;
 
@@ -110,7 +116,7 @@ public class BibliotecaApp {
                 if(!validOption) { display(MENU_ERROR);}
                 if (command.trim().equalsIgnoreCase("List Books")){
                     libraryView(reader);
-
+                    display(mainMenu);
                 }
             }
         }
@@ -121,6 +127,43 @@ public class BibliotecaApp {
 
     public void libraryView(BufferedReader reader){
         display(library.getlistOfBooks(true));
+        display(LIBRARY_INSTRUCTIONS);
+        String command;
+        try{
+            while(true){
+                display(LIBRARY_PROMPT);
+
+                command = reader.readLine();
+                checkForQuitRequest(command);
+                boolean validCommand = false;
+                if(command.trim().equalsIgnoreCase("Back")){
+                    return;
+                }
+                if(command.trim().indexOf(" ") == -1){
+                    display(LIBRARY_ERROR);
+                    continue;
+                }
+                String[] commandSplit = command.trim().split(" ", 2);
+                String task = commandSplit[0].trim();
+                String book = commandSplit[1].trim();
+
+                if (task.equalsIgnoreCase("Checkout")){
+                    validCommand = true;
+                    display(library.checkOutBook(book, customer));
+                    display(library.getlistOfBooks(true));
+                }
+                if (task.equalsIgnoreCase("Return")){
+                    validCommand = true;
+                    display(library.returnBook(book));
+                    display(library.getlistOfBooks(true));
+                }
+                if(!validCommand) { display(LIBRARY_ERROR);}
+
+            }
+        }
+        catch (IOException ex){
+            System.err.println(ex);
+        }
     }
 
 
