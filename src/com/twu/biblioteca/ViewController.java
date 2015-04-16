@@ -26,7 +26,7 @@ public class ViewController {
             while (true){
                 customer = reader.readLine().trim();
                 checkForQuitRequest(customer);
-                if (customer != null && StringHelper.isNotWhitespace(customer)){
+                if (isValidCustomerName()){
                     display("Hi " + customer);
                     return;
                 }
@@ -47,18 +47,12 @@ public class ViewController {
             while(true){
                 display(MENU_PROMPT);
                 command = reader.readLine();
+
                 checkForQuitRequest(command);
-                boolean validOption = false;
-                for(String option : mainMenu.getOptions()){
-                    if (command.trim().equalsIgnoreCase(option)){
-                        validOption = true;
-                    }
-                }
-                if(!validOption) { display(MENU_ERROR);}
-                if (command.trim().equalsIgnoreCase("List Books")){
-                    libraryView(reader);
-                    display(mainMenu);
-                }
+                boolean validOption = isValidMainMenuOption(command);
+                if(!validOption) { display(MENU_ERROR); }
+
+                executeOption(reader, command);
             }
         }
         catch (IOException ex){
@@ -66,8 +60,9 @@ public class ViewController {
         }
     }
 
+
     public void libraryView(BufferedReader reader){
-        display(library.getlistOfBooks(true));
+        displayAvailableBooks();
         display(LIBRARY_INSTRUCTIONS);
         String command;
         try{
@@ -76,34 +71,55 @@ public class ViewController {
 
                 command = reader.readLine();
                 checkForQuitRequest(command);
-                boolean validCommand = false;
-                if(command.trim().equalsIgnoreCase("Back")){
-                    return;
-                }
-                if(command.trim().indexOf(" ") == -1){
-                    display(LIBRARY_ERROR);
-                    continue;
-                }
-                String[] commandSplit = command.trim().split(" ", 2);
-                String task = commandSplit[0].trim();
-                String book = commandSplit[1].trim();
 
-                if (task.equalsIgnoreCase("Checkout")){
-                    validCommand = true;
-                    display(library.checkOutBook(book, customer));
-                    display(library.getlistOfBooks(true));
-                }
-                if (task.equalsIgnoreCase("Return")){
-                    validCommand = true;
-                    display(library.returnBook(book));
-                    display(library.getlistOfBooks(true));
-                }
-                if(!validCommand) { display(LIBRARY_ERROR);}
+                boolean validCommand = false;
+                if (checkForBackRequest(command)) return;
+                if (checkForTwoPartsOfCommand(command)) continue;
+
+                validCommand = executeLibraryCommand(command);
+                if(!validCommand) { display(LIBRARY_ERROR); }
             }
         }
         catch (IOException ex){
             System.err.println(ex);
         }
+    }
+
+    private boolean executeLibraryCommand(String command) {
+        String[] commandSplit = command.trim().split(" ", 2);
+        String task = commandSplit[0].trim();
+        String book = commandSplit[1].trim();
+
+        if (task.equalsIgnoreCase("Checkout")){
+            display(library.checkOutBook(book, customer));
+            displayAvailableBooks();
+            return true;
+        }
+        if (task.equalsIgnoreCase("Return")){
+            display(library.returnBook(book));
+            displayAvailableBooks();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkForTwoPartsOfCommand(String command) {
+        if(command.trim().indexOf(" ") == -1){
+            display(LIBRARY_ERROR);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkForBackRequest(String command) {
+        if(command.trim().equalsIgnoreCase("Back")){
+            return true;
+        }
+        return false;
+    }
+
+    private void displayAvailableBooks() {
+        display(library.getlistOfBooks(true));
     }
 
     public void quit(Reader reader){
@@ -117,7 +133,6 @@ public class ViewController {
     }
 
     private void display(Object object){
-
         if(object instanceof List){
             if( ((List)object).isEmpty()){
                 return;
@@ -132,6 +147,28 @@ public class ViewController {
             exit();
         }
     }
+
+    private boolean isValidCustomerName() {
+        return customer != null && StringHelper.isNotWhitespace(customer);
+    }
+
+    private boolean isValidMainMenuOption(String command) {
+        for(String option : mainMenu.getOptions()){
+            if (command.trim().equalsIgnoreCase(option)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private void executeOption(BufferedReader reader, String command) {
+        if (command.trim().equalsIgnoreCase("List Books")){
+            libraryView(reader);
+            display(mainMenu);
+        }
+    }
+
 
     private void exit(){
         display(BYE_MSG);
