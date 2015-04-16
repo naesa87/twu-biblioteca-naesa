@@ -85,6 +85,16 @@ public class ViewController {
         }
     }
 
+    public void quit(Reader reader){
+        try {
+            display(BYE_MSG);
+            reader.close();
+        }
+        catch (IOException ex){
+            System.err.println(ex);
+        }
+    }
+
     private boolean executeLibraryCommand(String command) {
         String[] commandSplit = command.trim().split(" ", 2);
         String task = commandSplit[0].trim();
@@ -112,24 +122,11 @@ public class ViewController {
     }
 
     private boolean checkForBackRequest(String command) {
-        if(command.trim().equalsIgnoreCase("Back")){
-            return true;
-        }
-        return false;
+        return command.trim().equalsIgnoreCase("Back");
     }
 
     private void displayAvailableBooks() {
         display(library.getlistOfBooks(true));
-    }
-
-    public void quit(Reader reader){
-        try {
-            display(BYE_MSG);
-            reader.close();
-        }
-        catch (IOException ex){
-            System.err.println(ex);
-        }
     }
 
     private void display(Object object){
