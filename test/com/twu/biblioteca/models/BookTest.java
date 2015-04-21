@@ -51,7 +51,7 @@ public class BookTest {
     @Test(timeout=5000)
     public void testBadDateInBookConstructor() throws Exception {
         try {
-            new Book(expectedName,expectedAuthor,500000);
+            new Book(expectedName,expectedAuthor,20161);
             fail("InvalidBookException expected");
         } catch (Exception e) {
             assertTrue("InvalidBookException expected",

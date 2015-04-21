@@ -1,5 +1,6 @@
 package com.twu.biblioteca.models;
 
+import com.twu.biblioteca.helpers.ValidationHelper;
 import com.twu.biblioteca.models.exceptions.InvalidBookException;
 import com.twu.biblioteca.helpers.StringHelper;
 import java.util.Calendar;
@@ -15,7 +16,7 @@ public class Book {
         if(name == null || author == null ){
             throw new NullPointerException(
                     "Parameters for book cannot be null");
-        } else if (isValidYear(year)) {
+        } else if (!ValidationHelper.isValidYear(year)) {
             throw new InvalidBookException("Year needs to be greater than 0 and less than today's year");
         }
         this.name = name;
@@ -97,8 +98,5 @@ public class Book {
     }
 
 
-    private boolean isValidYear(int year) {
-        return year < 0 || year > Calendar.getInstance().get(Calendar.YEAR);
-    }
 
 }
