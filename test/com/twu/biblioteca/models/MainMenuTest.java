@@ -16,10 +16,11 @@ public class MainMenuTest {
     @Before
     public void setUp() throws Exception {
         expectedOptions.add("List Books");
+        expectedOptions.add("List Movies");
     }
 
     @Test
-    public void testGetOptions(){;
+    public void testGetOptions(){
         assertEquals("Incorrect options", expectedOptions, mainMenu.getOptions());
     }
 
@@ -29,6 +30,7 @@ public class MainMenuTest {
                 "============================================================================================================\n" +
                 "MAIN MENU OPTIONS\n" +
                 "List Books\n" +
+                "List Movies\n" +
                 "============================================================================================================";
         assertEquals("Incorrect String printout",expectedString, mainMenu.toString());
     }
