@@ -10,8 +10,8 @@ public class ValidationHelper {
         return year >= 0 && year <= Calendar.getInstance().get(Calendar.YEAR);
     }
 
-    public static boolean isValidRating(int rating){
-        return rating >= 0 && rating <= 10;
+    public static boolean isValidRating(Integer rating){
+        return ((rating >= 1 && rating <= 10) || rating ==null);
     }
 
     public static boolean isValidUserID(String userID){

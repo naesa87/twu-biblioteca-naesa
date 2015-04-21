@@ -10,14 +10,27 @@ public class Movie {
     private String name;
     private String director;
     private int year;
-    private int rating;
+    private Integer rating;
     private String userID;
 
-    public Movie(String name, String director, int year, int rating){
+    public Movie(String name, String director, int year, Integer rating){
+        if(name == null || director == null ){
+            throw new NullPointerException(
+                    "Parameters for movie cannot be null");
+        } else if (!ValidationHelper.isValidYear(year)) {
+            throw new InvalidMovieException("Year needs to be greater than 0 and less than today's year");
+        } else if (!ValidationHelper.isValidRating(rating)) {
+            throw new InvalidMovieException("Rating needs to be from 1 to 10");
+        }
         this.name = name;
         this.director = director;
         this.year = year;
         this.rating = rating;
+    }
+
+    public Movie(String name, String director, int year, Integer rating, String userID){
+        this(name, director, year, rating);
+        setUser(userID);
     }
 
     public void setUser(String userID){
@@ -44,7 +57,7 @@ public class Movie {
         return year;
     }
 
-    public int rating(){
+    public Integer rating(){
         return rating;
     }
 

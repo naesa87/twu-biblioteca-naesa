@@ -17,11 +17,12 @@ public class ValidationHelperTest {
 
     @Test
     public void testIsValidRating() throws Exception {
-        assertTrue("Valid Rating should be true",ValidationHelper.isValidRating(0));
         assertTrue("Valid Rating should be true",ValidationHelper.isValidRating(1));
         assertTrue("Valid Rating should be true",ValidationHelper.isValidRating(10));
+        assertFalse("Valid Rating should be false", ValidationHelper.isValidRating(0));
         assertFalse("Valid Rating should be false", ValidationHelper.isValidRating(-5));
         assertFalse("Valid Rating should be false", ValidationHelper.isValidRating(11));
+
     }
 
     @Test
