@@ -103,5 +103,30 @@ public class MovieTest {
         typicalMovie.setUser("");
     }
 
+    @Test
+    public void testMovieIsCheckedOut(){
+        typicalMovie.setUser(expectedUserID);
+        assertEquals("IsCheckedOut should return true", true, typicalMovie.isCheckedOut());
+    }
+    @Test
+    public void basicEqualsTest() {
+        Movie sameMovie1 = new Movie(expectedName,expectedDirector,expectedYear,expectedRating);
+        Movie sameMovie2 = new Movie(expectedName,expectedDirector,expectedYear,expectedRating);
+        Movie diffMovie1 = new Movie(expectedName,expectedDirector,expectedYear,2);
+
+        assertTrue("Equals should return true", sameMovie1.equals(sameMovie2));
+        assertFalse("Equals should return false", sameMovie1.equals(diffMovie1));
+    }
+
+    @Test
+    public void basicEqualsTestWithUserID() {
+        Movie sameMovie1 = new Movie(expectedName,expectedDirector,expectedYear,expectedRating,expectedUserID);
+        Movie sameMovie2 = new Movie(expectedName,expectedDirector,expectedYear,expectedRating);
+        sameMovie2.setUser(expectedUserID);
+        Movie diffMovie1 = new Movie(expectedName,expectedDirector,expectedYear,2,"345-3456");
+
+        assertTrue("Equals should return true", sameMovie1.equals(sameMovie2));
+        assertFalse("Equals should return false", sameMovie1.equals(diffMovie1));
+    }
 
 }

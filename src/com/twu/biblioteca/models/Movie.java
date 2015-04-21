@@ -1,8 +1,6 @@
 package com.twu.biblioteca.models;
 
-import com.twu.biblioteca.helpers.StringHelper;
 import com.twu.biblioteca.helpers.ValidationHelper;
-import com.twu.biblioteca.models.exceptions.InvalidBookException;
 import com.twu.biblioteca.models.exceptions.InvalidMovieException;
 
 public class Movie {
@@ -64,4 +62,48 @@ public class Movie {
     public String userID(){
         return userID;
     }
+
+    public boolean isCheckedOut(){
+        return userID != null;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Movie)) {
+            return false;
+        }
+        Movie movie = (Movie) object;
+        if (userID == null) {
+            if (movie.userID != null)
+                return false;
+        } else if (!userID.equals(movie.userID)) {
+            return false;
+        }
+        if (rating == null) {
+            if (movie.rating != null)
+                return false;
+        } else if (!rating.equals(movie.rating)) {
+            return false;
+        }
+        return (name.equals(movie.name)
+                && director.equals(movie.director)
+                && year == (movie.year));
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31; // a prime for combining hash codes of fields
+        int result = 1;
+        result = prime * result + name.hashCode();
+        result = prime * result + director.hashCode();
+        if (userID != null){
+            result = prime * result + userID.hashCode();
+        }
+        if (rating != null){
+            result = prime * result + rating.hashCode();
+        }
+        result = prime * result + year;
+        return result;
+    }
+
 }
