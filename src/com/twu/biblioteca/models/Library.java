@@ -69,7 +69,7 @@ public class Library {
         }
         try {
             Book book = getBook(bookName);
-            book.setCustomer(customer);
+            book.setUser(customer);
         }catch (Exception e){
             return "Book could not be checked out";
         }
@@ -85,7 +85,7 @@ public class Library {
         }
         try {
             Book book = getBook(bookName);
-            book.setCustomer(null);
+            book.setUser(null);
         }catch (Exception e){
             return "Book could not be returned";
         }
@@ -96,8 +96,8 @@ public class Library {
     private void loadTempBookData(){
         listOfBooks.add(new Book("The Lord of the Rings","J.R.R. Tolkien",1954));
         listOfBooks.add(new Book("The Little Prince","Antoine de Saint-Exupéry",1943));
-        listOfBooks.add(new Book("Harry Potter and the Philosopher's Stone","J.K. Rowling",1997, "Jane Smith"));
-        listOfBooks.add(new Book("The Catcher in the Rye","J.D. Salinger",1951, "John Doe"));
+        listOfBooks.add(new Book("Harry Potter and the Philosopher's Stone","J.K. Rowling",1997, "123-1234"));
+        listOfBooks.add(new Book("The Catcher in the Rye","J.D. Salinger",1951, "123-1235"));
         listOfBooks.add(new Book("The Hunger Games","Suzanne Collins",2008));
     }
 

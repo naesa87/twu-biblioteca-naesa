@@ -1,6 +1,7 @@
 package com.twu.biblioteca.models;
 
 import com.twu.biblioteca.models.exceptions.InvalidBookException;
+import com.twu.biblioteca.models.exceptions.InvalidUserException;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,7 +10,7 @@ public class BookTest {
 
     private String expectedName = "Hitchhiker's Guide to the Galaxy";
     private String expectedAuthor = "Douglas Adams";
-    private String expectedCustomer = "John Doe";
+    private String expectedCustomer = "123-1234";
     private int expectedYear = 1979;
     private Book typicalBook = new Book(expectedName,expectedAuthor,expectedYear);
 
@@ -23,11 +24,11 @@ public class BookTest {
 
     @Test
     public void testBookConstructorWithCustomerAndBasicGetters(){
-        Book book = new Book("Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979, "John Doe");
+        Book book = new Book("Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979, "123-1234");
         assertEquals("Incorrect name", expectedName, book.name());
         assertEquals("Incorrect author", expectedAuthor, book.author());
         assertEquals("Incorrect year", expectedYear, book.year());
-        assertEquals("Incorrect customer", expectedCustomer, book.customer());
+        assertEquals("Incorrect customer", expectedCustomer, book.userID());
     }
 
     @Test(timeout=5000)
@@ -61,21 +62,22 @@ public class BookTest {
 
     @Test
     public void testSetCustomerGetCustomer() throws Exception {
-        typicalBook.setCustomer("John Doe");
-        assertEquals("Incorrect Customer", expectedCustomer, typicalBook.customer());
-        typicalBook.setCustomer(null);
-        assertEquals("Incorrect Customer", null, typicalBook.customer());
+        typicalBook.setUser(expectedCustomer);
+        assertEquals("Incorrect Customer", expectedCustomer, typicalBook.userID());
+        typicalBook.setUser(null);
+        assertEquals("Incorrect Customer", null, typicalBook.userID());
     }
 
-    @Test(expected = InvalidBookException.class, timeout=5000)
-    public void testWhiteSpaceCustomerName() {
-        typicalBook.setCustomer("");
-        typicalBook.setCustomer("   ");
+
+    @Test(expected = InvalidUserException.class, timeout=5000)
+    public void testSetUserWithWrongFormat() throws Exception {
+        typicalBook.setUser("A23-1234");
+        typicalBook.setUser("");
     }
 
     @Test
     public void testBookIsCheckedOut(){
-        typicalBook.setCustomer(expectedCustomer);
+        typicalBook.setUser(expectedCustomer);
         typicalBook.isCheckedOut();
         assertEquals("IsCheckedOut should return true", true, typicalBook.isCheckedOut());
     }
@@ -94,8 +96,8 @@ public class BookTest {
     public void basicEqualsTestWithCustomer() {
         Book sameBook1 = new Book(expectedName,expectedAuthor,expectedYear,expectedCustomer);
         Book sameBook2 = new Book(expectedName,expectedAuthor,expectedYear);
-        sameBook2.setCustomer(expectedCustomer);
-        Book difBook = new Book(expectedName,expectedAuthor,2015, "Stranger");
+        sameBook2.setUser(expectedCustomer);
+        Book difBook = new Book(expectedName,expectedAuthor,2015, "234-2345");
 
         assertTrue("Equals should return true", sameBook1.equals(sameBook2));
         assertFalse("Equals should return false", sameBook1.equals(difBook));

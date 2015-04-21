@@ -2,15 +2,10 @@ package com.twu.biblioteca.models;
 
 import com.twu.biblioteca.helpers.ValidationHelper;
 import com.twu.biblioteca.models.exceptions.InvalidBookException;
-import com.twu.biblioteca.helpers.StringHelper;
-import java.util.Calendar;
 
-public class Book {
+public class Book extends LibraryItem {
 
-    private String name;
     private String author;
-    private int year;
-    private String customer;
 
     public Book(String name, String author, int year){
         if(name == null || author == null ){
@@ -24,42 +19,17 @@ public class Book {
         this.year = year;
     }
 
-    public void setCustomer(String customer){
-        if (customer == null){
-            this.customer = null;
-            return;
-        }
-        if (StringHelper.isNotWhitespace(customer)){
-            this.customer = customer;
-        } else {
-            throw new InvalidBookException("Customer name must have characters");
-        }
-    }
-
-    public Book(String name, String author, int year, String customer){
+    public Book(String name, String author, int year, String userID){
         this(name,author,year);
-        setCustomer(customer);
+        setUser(userID);
     }
 
-    public String name(){
-        return name;
-    }
+
 
     public String author(){
         return author;
     }
 
-    public int year(){
-        return year;
-    }
-
-    public String customer(){
-        return customer;
-    }
-
-    public boolean isCheckedOut(){
-        return customer != null;
-    }
 
     @Override
     public boolean equals(Object object) {
@@ -67,10 +37,10 @@ public class Book {
             return false;
         }
         Book book = (Book) object;
-        if (customer == null) {
-            if (book.customer != null)
+        if (userID == null) {
+            if (book.userID != null)
                 return false;
-        } else if (!customer.equals(book.customer)) {
+        } else if (!userID.equals(book.userID)) {
             return false;
         }
         return (name.equals(book.name)
@@ -84,8 +54,8 @@ public class Book {
         int result = 1;
         result = prime * result + name.hashCode();
         result = prime * result + author.hashCode();
-        if (customer != null){
-            result = prime * result + customer.hashCode();
+        if (userID != null){
+            result = prime * result + userID.hashCode();
         }
         result = prime * result + year;
         return result;

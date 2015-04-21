@@ -3,13 +3,10 @@ package com.twu.biblioteca.models;
 import com.twu.biblioteca.helpers.ValidationHelper;
 import com.twu.biblioteca.models.exceptions.InvalidMovieException;
 
-public class Movie {
+public class Movie extends LibraryItem{
 
-    private String name;
     private String director;
-    private int year;
     private Integer rating;
-    private String userID;
 
     public Movie(String name, String director, int year, Integer rating){
         if(name == null || director == null ){
@@ -31,41 +28,14 @@ public class Movie {
         setUser(userID);
     }
 
-    public void setUser(String userID){
-        if (userID == null){
-            this.userID = null;
-            return;
-        }
-        if (ValidationHelper.isValidUserID(userID)){
-            this.userID = userID;
-        } else {
-            throw new InvalidMovieException("User library number must have format XXX-XXXX");
-        }
-    }
-
-    public String name(){
-        return name;
-    }
-
     public String director(){
         return director;
-    }
-
-    public int year(){
-        return year;
     }
 
     public Integer rating(){
         return rating;
     }
 
-    public String userID(){
-        return userID;
-    }
-
-    public boolean isCheckedOut(){
-        return userID != null;
-    }
 
     @Override
     public boolean equals(Object object) {

@@ -40,7 +40,7 @@ public class LibraryTest {
         assertEquals("Thank you! Enjoy the book", testLibrary.checkOutBook(availableBook.name(), customer));
 
         Book checkedOutbook = testLibrary.getBook(availableBook.name());
-        assertEquals("Incorrect checkout",customer, checkedOutbook.customer());
+        assertEquals("Incorrect checkout",customer, checkedOutbook.userID());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class LibraryTest {
         assertEquals("Thank you for returning the book", testLibrary.returnBook(checkedOutBook.name()));
 
         Book returnedBook = testLibrary.getBook(checkedOutBook.name());
-        assertEquals("Incorrect return", null, returnedBook.customer());
+        assertEquals("Incorrect return", null, returnedBook.userID());
     }
 
     @Test

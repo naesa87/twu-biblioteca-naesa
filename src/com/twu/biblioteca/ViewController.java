@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.helpers.StringHelper;
+import com.twu.biblioteca.helpers.ValidationHelper;
 import com.twu.biblioteca.models.Library;
 import com.twu.biblioteca.models.MainMenu;
 
@@ -72,11 +73,10 @@ public class ViewController {
                 command = reader.readLine();
                 checkForQuitRequest(command);
 
-                boolean validCommand = false;
                 if (checkForBackRequest(command)) return;
                 if (checkForTwoPartsOfCommand(command)) continue;
 
-                validCommand = executeLibraryCommand(command);
+                boolean validCommand = executeLibraryCommand(command);
                 if(!validCommand) { display(LIBRARY_ERROR); }
             }
         }
@@ -146,7 +146,7 @@ public class ViewController {
     }
 
     private boolean isValidCustomerName() {
-        return customer != null && StringHelper.isNotWhitespace(customer);
+        return customer != null && ValidationHelper.isValidUserID(customer);
     }
 
     private boolean isValidMainMenuOption(String command) {
@@ -176,7 +176,7 @@ public class ViewController {
     private static final MainMenu mainMenu = new MainMenu();
     private static final String WELCOME_MSG= "Welcome to Biblioteca!";
     private static final String BYE_MSG = "Thank you. Goodbye!";
-    private static final String NAME_PROMPT = "What's your name?:";
+    private static final String NAME_PROMPT = "What's your library user id?:";
     private static final String NAME_ERROR = "(Please type a valid name)";
     private static final String MENU_PROMPT = "Please choose a menu option";
     private static final String MENU_ERROR = "Invalid option";
