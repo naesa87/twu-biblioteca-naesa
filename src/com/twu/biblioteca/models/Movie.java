@@ -1,6 +1,7 @@
 package com.twu.biblioteca.models;
 
 import com.twu.biblioteca.helpers.StringHelper;
+import com.twu.biblioteca.helpers.ValidationHelper;
 import com.twu.biblioteca.models.exceptions.InvalidBookException;
 import com.twu.biblioteca.models.exceptions.InvalidMovieException;
 
@@ -10,7 +11,7 @@ public class Movie {
     private String director;
     private int year;
     private int rating;
-    private String libraryID;
+    private String userID;
 
     public Movie(String name, String director, int year, int rating){
         this.name = name;
@@ -19,15 +20,15 @@ public class Movie {
         this.rating = rating;
     }
 
-    public void setCustomer(String libraryID){
-        if (libraryID == null){
-            this.libraryID = null;
+    public void setUser(String userID){
+        if (userID == null){
+            this.userID = null;
             return;
         }
-        if (StringHelper.isNotWhitespace(libraryID)){
-            this.libraryID = libraryID;
+        if (ValidationHelper.isValidUserID(userID)){
+            this.userID = userID;
         } else {
-            throw new InvalidMovieException("Customer name must have characters");
+            throw new InvalidMovieException("User library number must have format XXX-XXXX");
         }
     }
 
@@ -45,5 +46,9 @@ public class Movie {
 
     public int rating(){
         return rating;
+    }
+
+    public String userID(){
+        return userID;
     }
 }

@@ -25,12 +25,12 @@ public class ValidationHelperTest {
     }
 
     @Test
-    public void testIsValidLibraryID() throws Exception {
-        assertTrue("Valid LibraryID should be true", ValidationHelper.isValidLibraryID("123-1234"));
-        assertTrue("Valid LibraryID should be true", ValidationHelper.isValidLibraryID("000-0000"));
-        assertFalse("Valid LibraryID should be false", ValidationHelper.isValidLibraryID("A23-1234"));
-        assertFalse("Valid LibraryID should be false", ValidationHelper.isValidLibraryID("1231234"));
-        assertFalse("Valid LibraryID should be false", ValidationHelper.isValidLibraryID(""));
-        assertFalse("Valid LibraryID should be false", ValidationHelper.isValidLibraryID("0"));
+    public void testIsValidUserID() throws Exception {
+        assertTrue("Valid LibraryID should be true", ValidationHelper.isValidUserID("123-1234"));
+        assertTrue("Valid LibraryID should be true", ValidationHelper.isValidUserID("000-0000"));
+        assertFalse("Valid LibraryID should be false", ValidationHelper.isValidUserID("A23-1234"));
+        assertFalse("Valid LibraryID should be false", ValidationHelper.isValidUserID("1231234"));
+        assertFalse("Valid LibraryID should be false", ValidationHelper.isValidUserID(""));
+        assertFalse("Valid LibraryID should be false", ValidationHelper.isValidUserID("0"));
     }
 }

@@ -14,9 +14,9 @@ public class ValidationHelper {
         return rating >= 0 && rating <= 10;
     }
 
-    public static boolean isValidLibraryID(String libraryID){
+    public static boolean isValidUserID(String userID){
         Pattern libraryIDPattern = Pattern.compile("\\d{3}-\\d{4}");
-        Matcher libraryIDMatcher = libraryIDPattern.matcher(libraryID);
+        Matcher libraryIDMatcher = libraryIDPattern.matcher(userID);
         return libraryIDMatcher.matches();
     }
 }
