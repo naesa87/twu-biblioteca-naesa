@@ -76,4 +76,10 @@ public class Movie extends LibraryItem{
         return result;
     }
 
+    @Override
+    public String toString() {
+        String availableFlag = isCheckedOut() ? "available" : "checked out";
+        return (name() + " by " + director() + " (" + year() + ") "+rating+" stars : " + availableFlag);
+    }
+
 }

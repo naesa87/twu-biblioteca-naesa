@@ -1,7 +1,6 @@
 package com.twu.biblioteca.models;
 
 import com.twu.biblioteca.helpers.ValidationHelper;
-import com.twu.biblioteca.models.exceptions.InvalidMovieException;
 import com.twu.biblioteca.models.exceptions.InvalidUserException;
 
 abstract public class LibraryItem {
