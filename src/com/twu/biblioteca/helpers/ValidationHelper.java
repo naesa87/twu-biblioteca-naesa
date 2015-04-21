@@ -11,7 +11,10 @@ public class ValidationHelper {
     }
 
     public static boolean isValidRating(Integer rating){
-        return ((rating >= 1 && rating <= 10) || rating ==null);
+        if(rating == null){
+            return true;
+        }
+        return ((rating >= 1 && rating <= 10));
     }
 
     public static boolean isValidUserID(String userID){

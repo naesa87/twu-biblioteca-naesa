@@ -17,6 +17,7 @@ public class ValidationHelperTest {
 
     @Test
     public void testIsValidRating() throws Exception {
+        assertTrue("Valid Rating should be true",ValidationHelper.isValidRating(null));
         assertTrue("Valid Rating should be true",ValidationHelper.isValidRating(1));
         assertTrue("Valid Rating should be true",ValidationHelper.isValidRating(10));
         assertFalse("Valid Rating should be false", ValidationHelper.isValidRating(0));

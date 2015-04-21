@@ -33,7 +33,6 @@ public class MovieTest {
         assertEquals("Incorrect year", expectedYear, movie.year());
         assertEquals("Incorrect rating", expectedRating, movie.rating());
         assertEquals("Incorrect userid", expectedUserID,movie.userID());
-
     }
 
     @Test(timeout=5000)
@@ -81,6 +80,13 @@ public class MovieTest {
             assertTrue("InvalidMovieException expected",
                     e instanceof InvalidMovieException);
         }
+    }
+
+
+    @Test
+    public void testNullRatingInMovieConstructor() throws Exception{
+        Movie movie = new Movie(expectedName, expectedDirector, expectedYear, null);
+        assertEquals("Incorrect rating", null, movie.rating());
     }
 
     @Test
