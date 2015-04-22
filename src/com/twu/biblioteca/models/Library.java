@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Library {
 
-    private List<Book> listOfBooks;
     private static final String LIBRARY_TITLE = "LIST OF BOOKS";
+    private List<Book> listOfBooks;
 
     public Library(){
         this.listOfBooks = new ArrayList<Book>();

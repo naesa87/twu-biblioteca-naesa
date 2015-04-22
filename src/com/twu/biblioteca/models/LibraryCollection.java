@@ -36,8 +36,6 @@ abstract public class LibraryCollection<T extends LibraryItem> {
         return !obj.isCheckedOut();
     }
 
-    public abstract String getLibraryCollection(boolean availableFlag);
-
     public String checkOutItem(String itemName, String userID){
 
         if (!containsItem(itemName)){
@@ -70,6 +68,8 @@ abstract public class LibraryCollection<T extends LibraryItem> {
         }
         return "Thank you for returning the "+getClassName().toLowerCase();
     }
+
+    public abstract String getLibraryCollection(boolean availableFlag);
 
     private String getClassName(){
         Type genericSuperClass = this.getClass().getGenericSuperclass();

@@ -10,6 +10,21 @@ import java.util.List;
 
 public class ViewController {
 
+    private static final String QUIT = "quit";
+    private static final MainMenu mainMenu = new MainMenu();
+    private static final String WELCOME_MSG= "Welcome to Biblioteca!";
+    private static final String BYE_MSG = "Thank you. Goodbye!";
+    private static final String NAME_PROMPT = "What's your library user id?:";
+    private static final String NAME_ERROR = "(Please type a valid name)";
+    private static final String MENU_PROMPT = "Please choose a menu option";
+    private static final String MENU_ERROR = "Invalid option";
+    private static final String LIBRARY_PROMPT = "Please enter a command";
+    private static final String LIBRARY_ERROR = "Invalid library command";
+    private static final String QUIT_INSTRUCTION = "(to exit application enter quit at any time)";
+    private static final String LIBRARY_INSTRUCTIONS = "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n"
+            +"to return a book enter: Return \"Book Name\" (no quotes)\n"+
+            "to go back to main menu enter: back";
+
     private Library library;
     private String customer;
     private BufferedReader reader;
@@ -85,13 +100,37 @@ public class ViewController {
         }
     }
 
-    public void quit(){
-        try {
-            display(BYE_MSG);
-            reader.close();
+    private void display(Object object){
+        if(object instanceof List){
+            if( ((List)object).isEmpty()){
+                return;
+            }
         }
-        catch (IOException ex){
-            System.err.println(ex);
+        System.out.println(object.toString());
+        System.out.flush();
+    }
+
+    private void displayAvailableBooks() {
+        display(library.getlistOfBooks(true));
+    }
+
+    private void exit(){
+        display(BYE_MSG);
+        System.exit(0);
+    }
+
+    private boolean checkForTwoPartsOfCommand(String command) {
+        if(command.trim().indexOf(" ") == -1){
+            display(LIBRARY_ERROR);
+            return true;
+        }
+        return false;
+    }
+
+    private void executeOption(String command) {
+        if (command.trim().equalsIgnoreCase("List Books")){
+            libraryView();
+            display(mainMenu);
         }
     }
 
@@ -113,30 +152,8 @@ public class ViewController {
         return false;
     }
 
-    private boolean checkForTwoPartsOfCommand(String command) {
-        if(command.trim().indexOf(" ") == -1){
-            display(LIBRARY_ERROR);
-            return true;
-        }
-        return false;
-    }
-
     private boolean checkForBackRequest(String command) {
         return command.trim().equalsIgnoreCase("Back");
-    }
-
-    private void displayAvailableBooks() {
-        display(library.getlistOfBooks(true));
-    }
-
-    private void display(Object object){
-        if(object instanceof List){
-            if( ((List)object).isEmpty()){
-                return;
-            }
-        }
-        System.out.println(object.toString());
-        System.out.flush();
     }
 
     private void checkForQuitRequest(String result) {
@@ -159,31 +176,4 @@ public class ViewController {
     }
 
 
-    private void executeOption(String command) {
-        if (command.trim().equalsIgnoreCase("List Books")){
-            libraryView();
-            display(mainMenu);
-        }
-    }
-
-
-    private void exit(){
-        display(BYE_MSG);
-        System.exit(0);
-    }
-
-    private static final String QUIT = "quit";
-    private static final MainMenu mainMenu = new MainMenu();
-    private static final String WELCOME_MSG= "Welcome to Biblioteca!";
-    private static final String BYE_MSG = "Thank you. Goodbye!";
-    private static final String NAME_PROMPT = "What's your library user id?:";
-    private static final String NAME_ERROR = "(Please type a valid name)";
-    private static final String MENU_PROMPT = "Please choose a menu option";
-    private static final String MENU_ERROR = "Invalid option";
-    private static final String LIBRARY_PROMPT = "Please enter a command";
-    private static final String LIBRARY_ERROR = "Invalid library command";
-    private static final String QUIT_INSTRUCTION = "(to exit application enter quit at any time)";
-    private static final String LIBRARY_INSTRUCTIONS = "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n"
-            +"to return a book enter: Return \"Book Name\" (no quotes)\n"+
-            "to go back to main menu enter: back";
 }

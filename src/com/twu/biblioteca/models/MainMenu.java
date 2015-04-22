@@ -8,8 +8,8 @@ import java.util.List;
 
 public class MainMenu {
 
-    private List<String> options;
     private static final String MENU_TITLE = "MAIN MENU OPTIONS";
+    private List<String> options;
 
     public MainMenu(){
         this.options = new ArrayList<String>();

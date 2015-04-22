@@ -18,7 +18,6 @@ public class BibliotecaApp {
         ViewController viewController = new ViewController(library,reader);
         viewController.welcomeView();
         viewController.mainMenuView();
-        viewController.quit();
     }
 
 }
