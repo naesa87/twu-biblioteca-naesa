@@ -1,14 +1,12 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.helpers.StringHelper;
 import com.twu.biblioteca.helpers.ValidationHelper;
 import com.twu.biblioteca.models.Library;
 import com.twu.biblioteca.models.MainMenu;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.Arrays;
+
 import java.util.List;
 
 public class ViewController {
@@ -22,6 +20,7 @@ public class ViewController {
 
     public void welcomeView(BufferedReader reader){
         display(WELCOME_MSG.toUpperCase());
+        display(QUIT_INSTRUCTION);
         display(NAME_PROMPT);
         try {
             while (true){
@@ -182,7 +181,7 @@ public class ViewController {
     private static final String MENU_ERROR = "Invalid option";
     private static final String LIBRARY_PROMPT = "Please enter a command";
     private static final String LIBRARY_ERROR = "Invalid library command";
-    private static final List<String> LIBRARY_COMMANDS = Arrays.asList("Checkout", "Return");
+    private static final String QUIT_INSTRUCTION = "(to exit application enter quit at any time)";
     private static final String LIBRARY_INSTRUCTIONS = "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n"
             +"to return a book enter: Return \"Book Name\" (no quotes)\n"+
             "to go back to main menu enter: back";

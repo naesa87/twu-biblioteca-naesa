@@ -17,7 +17,7 @@ public class Library {
 
     public boolean containsBook(String bookName){
         for(Book book: listOfBooks){
-            if (bookName.equals(book.name())){
+            if (bookName.equalsIgnoreCase(book.name())){
                 return true;
             }
         }
@@ -26,7 +26,7 @@ public class Library {
 
     public Book getBook(String bookName){
         for(Book book: listOfBooks){
-            if (bookName.equals(book.name())){
+            if (bookName.equalsIgnoreCase(book.name())){
                 return book;
             }
         }

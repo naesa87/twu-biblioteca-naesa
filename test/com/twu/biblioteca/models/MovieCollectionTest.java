@@ -13,46 +13,46 @@ public class MovieCollectionTest {
     private String userID = "123-1234";
 
     @Test
-    public void testContainsBook() throws Exception {
-        assertTrue("ContainsBook should be true", movieCollection.containsItem(availableMovie.name()));
-        assertFalse("ContainsBook should be false", movieCollection.containsItem(notFoundMovie.name()));
+    public void testContainsMovie() throws Exception {
+        assertTrue("ContainsMovie should be true", movieCollection.containsItem(availableMovie.name()));
+        assertFalse("ContainsMovie should be false", movieCollection.containsItem(notFoundMovie.name()));
     }
 
     @Test
-    public void testIsBookAvailable(){
-        assertTrue("IsBookAvailable should be true", movieCollection.isItemAvailable(availableMovie.name()));
-        assertFalse("IsBookAvailable should be false", movieCollection.isItemAvailable(checkedOutMovie.name()));
+    public void testIsMovieAvailable(){
+        assertTrue("IsMovieAvailable should be true", movieCollection.isItemAvailable(availableMovie.name()));
+        assertFalse("IsMovieAvailable should be false", movieCollection.isItemAvailable(checkedOutMovie.name()));
     }
 
     @Test
-    public void testGetBook() throws Exception {
+    public void testGetMovie() throws Exception {
         Movie retrievedMovie = movieCollection.getItem(availableMovie.name());
-        assertEquals("Incorrect book", availableMovie, retrievedMovie);
+        assertEquals("Incorrect movie", availableMovie, retrievedMovie);
     }
 
 
     @Test
-    public void testCheckOutBook() throws Exception {
-        assertEquals("Book does not exist in library", movieCollection.checkOutItem(notFoundMovie.name(), userID));
-        assertEquals("Book is currently unavailable for checkout", movieCollection.checkOutItem(checkedOutMovie.name(), userID));
-        assertEquals("Thank you! Enjoy the book", movieCollection.checkOutItem(availableMovie.name(), userID));
+    public void testCheckOutMovie() throws Exception {
+        assertEquals("Movie does not exist in library", movieCollection.checkOutItem(notFoundMovie.name(), userID));
+        assertEquals("Movie is currently unavailable for checkout", movieCollection.checkOutItem(checkedOutMovie.name(), userID));
+        assertEquals("Thank you! Enjoy the movie", movieCollection.checkOutItem(availableMovie.name(), userID));
 
         Movie checkedOutmovie = movieCollection.getItem(availableMovie.name());
         assertEquals("Incorrect checkout",userID, checkedOutmovie.userID());
     }
 
     @Test
-    public void testReturnBook() throws Exception {
-        assertEquals("Book does not exist in library", movieCollection.returnItem(notFoundMovie.name()));
-        assertEquals("Book has already been returned", movieCollection.returnItem(availableMovie2.name()));
-        assertEquals("Thank you for returning the book", movieCollection.returnItem(checkedOutMovie.name()));
+    public void testReturnMovie() throws Exception {
+        assertEquals("Movie does not exist in library", movieCollection.returnItem(notFoundMovie.name()));
+        assertEquals("Movie has already been returned", movieCollection.returnItem(availableMovie2.name()));
+        assertEquals("Thank you for returning the movie", movieCollection.returnItem(checkedOutMovie.name()));
 
         Movie returnedMovie = movieCollection.getItem(checkedOutMovie.name());
         assertEquals("Incorrect return", null, returnedMovie.userID());
     }
 
     @Test
-    public void testGetBookListCheckedOut() throws Exception{
+    public void testGetMovieListCheckedOut() throws Exception{
         String expectedString =
                         "============================================================================================================\n" +
                         "LIST OF MOVIES\n" +
@@ -64,7 +64,7 @@ public class MovieCollectionTest {
     }
 
     @Test
-    public void testGetBookListAvailable() throws Exception{
+    public void testGetMovieListAvailable() throws Exception{
         String expectedString =
                         "============================================================================================================\n" +
                         "LIST OF MOVIES\n" +

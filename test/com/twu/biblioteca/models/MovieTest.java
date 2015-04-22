@@ -2,6 +2,7 @@ package com.twu.biblioteca.models;
 
 import com.twu.biblioteca.models.exceptions.InvalidBookException;
 import com.twu.biblioteca.models.exceptions.InvalidMovieException;
+import com.twu.biblioteca.models.exceptions.InvalidUserException;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -97,7 +98,7 @@ public class MovieTest {
         assertEquals("Incorrect UserID", null, typicalMovie.userID());
     }
 
-    @Test(expected = InvalidMovieException.class, timeout=5000)
+    @Test(expected = InvalidUserException.class, timeout=5000)
     public void testSetUserWithWrongFormat() throws Exception {
         typicalMovie.setUser("A23-1234");
         typicalMovie.setUser("");
