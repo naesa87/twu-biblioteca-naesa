@@ -5,7 +5,6 @@ import com.twu.biblioteca.models.Library;
 import com.twu.biblioteca.models.MainMenu;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Reader;
 
 import java.util.List;
 
@@ -13,12 +12,14 @@ public class ViewController {
 
     private Library library;
     private String customer;
+    private BufferedReader reader;
 
-    public ViewController(Library library){
+    public ViewController(Library library, BufferedReader reader){
         this.library = library;
+        this.reader = reader;
     }
 
-    public void welcomeView(BufferedReader reader){
+    public void welcomeView(){
         display(WELCOME_MSG.toUpperCase());
         display(QUIT_INSTRUCTION);
         display(NAME_PROMPT);
@@ -40,7 +41,7 @@ public class ViewController {
     }
 
 
-    public void mainMenuView(BufferedReader reader){
+    public void mainMenuView(){
         display(mainMenu);
         String command;
         try{
@@ -52,7 +53,7 @@ public class ViewController {
                 boolean validOption = isValidMainMenuOption(command);
                 if(!validOption) { display(MENU_ERROR); }
 
-                executeOption(reader, command);
+                executeOption(command);
             }
         }
         catch (IOException ex){
@@ -61,7 +62,7 @@ public class ViewController {
     }
 
 
-    public void libraryView(BufferedReader reader){
+    public void libraryView(){
         displayAvailableBooks();
         display(LIBRARY_INSTRUCTIONS);
         String command;
@@ -84,7 +85,7 @@ public class ViewController {
         }
     }
 
-    public void quit(Reader reader){
+    public void quit(){
         try {
             display(BYE_MSG);
             reader.close();
@@ -158,9 +159,9 @@ public class ViewController {
     }
 
 
-    private void executeOption(BufferedReader reader, String command) {
+    private void executeOption(String command) {
         if (command.trim().equalsIgnoreCase("List Books")){
-            libraryView(reader);
+            libraryView();
             display(mainMenu);
         }
     }

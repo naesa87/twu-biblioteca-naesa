@@ -16,10 +16,10 @@ public class BibliotecaApp {
     public void run(){
         library = new Library();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ViewController viewController = new ViewController(library);
-        viewController.welcomeView(reader);
-        viewController.mainMenuView(reader);
-        viewController.quit(reader);
+        ViewController viewController = new ViewController(library,reader);
+        viewController.welcomeView();
+        viewController.mainMenuView();
+        viewController.quit();
     }
 
 }
