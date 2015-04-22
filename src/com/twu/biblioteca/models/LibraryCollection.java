@@ -1,19 +1,16 @@
 package com.twu.biblioteca.models;
 
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 abstract public class LibraryCollection<T extends LibraryItem> {
 
     protected List<T> collection;
-    private Class<T> persistentClass;
-
+    
     public LibraryCollection(){
         this.collection = new ArrayList<T>();
-        this.persistentClass = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-        // override this
-        // // then add loadTempBookData(); //since there is no db yet
     }
 
     public boolean containsItem(String itemName){
@@ -75,7 +72,14 @@ abstract public class LibraryCollection<T extends LibraryItem> {
     }
 
     private String getClassName(){
-        return persistentClass.getSimpleName();
+        Type genericSuperClass = this.getClass().getGenericSuperclass();
+        if (genericSuperClass instanceof ParameterizedType){
+            ParameterizedType pt= (ParameterizedType)genericSuperClass;
+            Type type = pt.getActualTypeArguments()[0];
+            String typeName = type.getTypeName();
+            return typeName.substring(typeName.lastIndexOf(".") + 1);
+        }
+        return "Item";
     }
 
 }
