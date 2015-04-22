@@ -29,11 +29,12 @@ public class ViewControllerTest {
     private String randomLetters = "asdf";
     private String numbersWrongFormatUserId = "1231234";
     private String correctFormatUserId = "123-1234";
+    private String quit = "quit";
 
     @Before
     public void setUpStreams(){
         System.setOut(new PrintStream(outContent));
-//        System.setIn(new PrintStream(inContent));
+
     }
 
     @After
@@ -53,6 +54,7 @@ public class ViewControllerTest {
                         +correctFormatUserId;
         inContent = new ByteArrayInputStream(mockInput.getBytes());
         reader = new BufferedReader(new InputStreamReader(inContent));
+
         ViewController vc = new ViewController(library, reader);
         vc.welcomeView();
         assertEquals("WELCOME TO BIBLIOTECA!\n" +
@@ -71,9 +73,42 @@ public class ViewControllerTest {
 
                 "What's your library user id?:\n" +
                 "(Please type a valid name)\n" +
-                
+
                 "What's your library user id?:\n" +
                 "Hi 123-1234\n", outContent.toString());
+    }
+
+    @Test
+    public void testWelcomeViewQuit(){
+
+        setupInputStream(quit);
+
+        ViewController vc = new ViewController(library, reader);
+        vc.welcomeView();
+        assertEquals("WELCOME TO BIBLIOTECA!\n" +
+                "(to exit application enter quit at any time)\n" +
+                "What's your library user id?:\n" +
+                "(Please type a valid name)\n" +
+
+                "What's your library user id?:\n" +
+                "(Please type a valid name)\n" +
+
+                "What's your library user id?:\n" +
+                "(Please type a valid name)\n" +
+
+                "What's your library user id?:\n" +
+                "(Please type a valid name)\n" +
+
+                "What's your library user id?:\n" +
+                "(Please type a valid name)\n" +
+
+                "What's your library user id?:\n" +
+                "Hi 123-1234\n", outContent.toString());
+    }
+
+    private void setupInputStream(String mockInput) {
+        inContent = new ByteArrayInputStream(mockInput.getBytes());
+        reader = new BufferedReader(new InputStreamReader(inContent));
     }
 
 //    @Test
