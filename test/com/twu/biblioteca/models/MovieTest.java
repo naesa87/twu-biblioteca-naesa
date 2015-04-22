@@ -1,6 +1,5 @@
 package com.twu.biblioteca.models;
 
-import com.twu.biblioteca.models.exceptions.InvalidBookException;
 import com.twu.biblioteca.models.exceptions.InvalidMovieException;
 import com.twu.biblioteca.models.exceptions.InvalidUserException;
 import org.junit.Test;

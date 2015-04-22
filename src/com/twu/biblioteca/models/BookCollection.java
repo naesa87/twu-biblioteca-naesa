@@ -2,8 +2,6 @@ package com.twu.biblioteca.models;
 
 import com.twu.biblioteca.helpers.StringHelper;
 
-import java.util.ArrayList;
-
 public class BookCollection extends LibraryCollection<Book> {
 
     private static final String LIBRARY_TITLE = "LIST OF BOOKS";

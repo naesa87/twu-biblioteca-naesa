@@ -1,7 +1,6 @@
 package com.twu.biblioteca.models;
 
 import com.twu.biblioteca.helpers.StringHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,10 +100,4 @@ public class Library {
         listOfBooks.add(new Book("The Hunger Games","Suzanne Collins",2008));
     }
 
- /*   public void addBook(String name, String author, int year, String customer ){
-       // create valid book (does own internal checks)
-       // check if library already contains book (avoid duplicaation)
-        // check customer null or whitespace, if not, then set customer
-       // add book to library
-    }*/
 }
