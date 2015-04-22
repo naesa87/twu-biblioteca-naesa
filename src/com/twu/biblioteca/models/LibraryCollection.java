@@ -8,7 +8,7 @@ import java.util.List;
 abstract public class LibraryCollection<T extends LibraryItem> {
 
     protected List<T> collection;
-    
+
     public LibraryCollection(){
         this.collection = new ArrayList<T>();
     }

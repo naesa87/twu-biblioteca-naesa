@@ -18,11 +18,7 @@ public class MainMenu {
     }
 
     public List<String> getOptions(){
-        List<String> options = new ArrayList<String>();
-        for( String option: this.options){
-            options.add(option);
-        }
-        return options;
+        return new ArrayList<String>(options);
     }
 
     @Override
