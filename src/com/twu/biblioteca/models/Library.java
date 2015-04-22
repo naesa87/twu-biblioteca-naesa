@@ -16,7 +16,7 @@ public class Library {
 
     public boolean containsBook(String bookName){
         for(Book book: listOfBooks){
-            if (bookName.equalsIgnoreCase(book.name())){
+            if (bookName.equalsIgnoreCase(book.getName())){
                 return true;
             }
         }
@@ -25,7 +25,7 @@ public class Library {
 
     public Book getBook(String bookName){
         for(Book book: listOfBooks){
-            if (bookName.equalsIgnoreCase(book.name())){
+            if (bookName.equalsIgnoreCase(book.getName())){
                 return book;
             }
         }
@@ -49,7 +49,7 @@ public class Library {
         for (Book book: listOfBooks){
             if (book.isCheckedOut()!=availableFlag){
                 listOfBooksString.append(
-                        String.format("%-60s %-30s  %15d", book.name(), book.author(), book.year()));
+                        String.format("%-60s %-30s  %15d", book.getName(), book.getAuthor(), book.getYear()));
                 listOfBooksString.append(LS);
             }
         }

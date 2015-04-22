@@ -24,7 +24,7 @@ public class MovieCollection extends LibraryCollection<Movie>{
         for (Movie movie: collection){
             if (movie.isCheckedOut()!=availableFlag){
                 listOfBooksString.append(
-                        String.format("%-40s %-30s %-15s %10s", movie.name(), movie.director(), movie.rating(), movie.year()));
+                        String.format("%-40s %-30s %-15s %10s", movie.getName(), movie.getDirector(), movie.getRating(), movie.getYear()));
                 listOfBooksString.append(LS);
             }
         }

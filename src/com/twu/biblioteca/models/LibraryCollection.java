@@ -15,7 +15,7 @@ abstract public class LibraryCollection<T extends LibraryItem> {
 
     public boolean containsItem(String itemName){
         for(T obj: collection){
-            if (itemName.equalsIgnoreCase(obj.name())){
+            if (itemName.equalsIgnoreCase(obj.getName())){
                 return true;
             }
         }
@@ -24,7 +24,7 @@ abstract public class LibraryCollection<T extends LibraryItem> {
 
     public T getItem(String itemName){
         for(T obj: collection){
-            if (itemName.equalsIgnoreCase(obj.name())){
+            if (itemName.equalsIgnoreCase(obj.getName())){
                 return obj;
             }
         }

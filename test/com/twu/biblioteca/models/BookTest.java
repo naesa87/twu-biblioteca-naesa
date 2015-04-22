@@ -17,18 +17,18 @@ public class BookTest {
     @Test
     public void testTypicalBookConstructorAndBasicGetters(){
         Book book = new Book("Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979);
-        assertEquals("Incorrect name", expectedName, book.name());
-        assertEquals("Incorrect author", expectedAuthor, book.author());
-        assertEquals("Incorrect year", expectedYear, book.year());
+        assertEquals("Incorrect name", expectedName, book.getName());
+        assertEquals("Incorrect author", expectedAuthor, book.getAuthor());
+        assertEquals("Incorrect year", expectedYear, book.getYear());
     }
 
     @Test
     public void testBookConstructorWithCustomerAndBasicGetters(){
         Book book = new Book("Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1979, "123-1234");
-        assertEquals("Incorrect name", expectedName, book.name());
-        assertEquals("Incorrect author", expectedAuthor, book.author());
-        assertEquals("Incorrect year", expectedYear, book.year());
-        assertEquals("Incorrect customer", expectedCustomer, book.userID());
+        assertEquals("Incorrect name", expectedName, book.getName());
+        assertEquals("Incorrect author", expectedAuthor, book.getAuthor());
+        assertEquals("Incorrect year", expectedYear, book.getYear());
+        assertEquals("Incorrect customer", expectedCustomer, book.getUserID());
     }
 
     @Test(timeout=5000)
@@ -63,9 +63,9 @@ public class BookTest {
     @Test
     public void testSetCustomerGetCustomer() throws Exception {
         typicalBook.setUser(expectedCustomer);
-        assertEquals("Incorrect Customer", expectedCustomer, typicalBook.userID());
+        assertEquals("Incorrect Customer", expectedCustomer, typicalBook.getUserID());
         typicalBook.setUser(null);
-        assertEquals("Incorrect Customer", null, typicalBook.userID());
+        assertEquals("Incorrect Customer", null, typicalBook.getUserID());
     }
 
 

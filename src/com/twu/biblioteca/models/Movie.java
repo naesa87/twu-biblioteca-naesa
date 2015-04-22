@@ -28,11 +28,11 @@ public class Movie extends LibraryItem{
         setUser(userID);
     }
 
-    public String director(){
+    public String getDirector(){
         return director;
     }
 
-    public Integer rating(){
+    public Integer getRating(){
         return rating;
     }
 
@@ -79,7 +79,7 @@ public class Movie extends LibraryItem{
     @Override
     public String toString() {
         String availableFlag = isCheckedOut() ? "available" : "checked out";
-        return (name() + " by " + director() + " (" + year() + ") "+rating+" stars : " + availableFlag);
+        return (name + " by " + director + " (" + year + ") "+rating+" stars : " + availableFlag);
     }
 
 }

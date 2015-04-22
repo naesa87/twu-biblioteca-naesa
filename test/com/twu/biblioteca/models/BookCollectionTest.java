@@ -15,41 +15,41 @@ public class BookCollectionTest {
 
     @Test
     public void testContainsBook() throws Exception {
-        assertTrue("ContainsBook should be true", bookCollection.containsItem(availableBook.name()));
-        assertFalse("ContainsBook should be false", bookCollection.containsItem(notFoundBook.name()));
+        assertTrue("ContainsBook should be true", bookCollection.containsItem(availableBook.getName()));
+        assertFalse("ContainsBook should be false", bookCollection.containsItem(notFoundBook.getName()));
     }
 
     @Test
     public void testIsBookAvailable(){
-        assertTrue("IsBookAvailable should be true", bookCollection.isItemAvailable(availableBook.name()));
-        assertFalse("IsBookAvailable should be false", bookCollection.isItemAvailable(checkedOutBook.name()));
+        assertTrue("IsBookAvailable should be true", bookCollection.isItemAvailable(availableBook.getName()));
+        assertFalse("IsBookAvailable should be false", bookCollection.isItemAvailable(checkedOutBook.getName()));
     }
 
     @Test
     public void testGetBook() throws Exception {
-        Book retrievedBook = bookCollection.getItem(availableBook.name());
+        Book retrievedBook = bookCollection.getItem(availableBook.getName());
         assertEquals("Incorrect book", availableBook, retrievedBook);
     }
 
 
     @Test
     public void testCheckOutBook() throws Exception {
-        assertEquals("Book does not exist in library", bookCollection.checkOutItem(notFoundBook.name(), customer));
-        assertEquals("Book is currently unavailable for checkout", bookCollection.checkOutItem(checkedOutBook.name(), customer));
-        assertEquals("Thank you! Enjoy the book", bookCollection.checkOutItem(availableBook.name(), customer));
+        assertEquals("Book does not exist in library", bookCollection.checkOutItem(notFoundBook.getName(), customer));
+        assertEquals("Book is currently unavailable for checkout", bookCollection.checkOutItem(checkedOutBook.getName(), customer));
+        assertEquals("Thank you! Enjoy the book", bookCollection.checkOutItem(availableBook.getName(), customer));
 
-        Book checkedOutbook = bookCollection.getItem(availableBook.name());
-        assertEquals("Incorrect checkout",customer, checkedOutbook.userID());
+        Book checkedOutbook = bookCollection.getItem(availableBook.getName());
+        assertEquals("Incorrect checkout",customer, checkedOutbook.getUserID());
     }
 
     @Test
     public void testReturnBook() throws Exception {
-        assertEquals("Book does not exist in library", bookCollection.returnItem(notFoundBook.name()));
-        assertEquals("Book has already been returned", bookCollection.returnItem(availableBook2.name()));
-        assertEquals("Thank you for returning the book", bookCollection.returnItem(checkedOutBook.name()));
+        assertEquals("Book does not exist in library", bookCollection.returnItem(notFoundBook.getName()));
+        assertEquals("Book has already been returned", bookCollection.returnItem(availableBook2.getName()));
+        assertEquals("Thank you for returning the book", bookCollection.returnItem(checkedOutBook.getName()));
 
-        Book returnedBook = bookCollection.getItem(checkedOutBook.name());
-        assertEquals("Incorrect return", null, returnedBook.userID());
+        Book returnedBook = bookCollection.getItem(checkedOutBook.getName());
+        assertEquals("Incorrect return", null, returnedBook.getUserID());
     }
 
     @Test

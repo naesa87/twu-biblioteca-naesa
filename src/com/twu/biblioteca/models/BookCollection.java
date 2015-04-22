@@ -24,7 +24,7 @@ public class BookCollection extends LibraryCollection<Book> {
         for (Book book: collection){
             if (book.isCheckedOut()!=availableFlag){
                 listOfBooksString.append(
-                        String.format("%-60s %-30s  %15d", book.name(), book.author(), book.year()));
+                        String.format("%-60s %-30s  %15d", book.getName(), book.getAuthor(), book.getYear()));
                 listOfBooksString.append(LS);
             }
         }

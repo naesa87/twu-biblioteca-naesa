@@ -19,20 +19,20 @@ public class MovieTest {
     public void testTypicalMovieConstructorAndBasicGetters(){
         Movie movie = new Movie("The Godfather", "Francis Ford Coppola", 1972, 9);
 
-        assertEquals("Incorrect name", expectedName, movie.name());
-        assertEquals("Incorrect director", expectedDirector, movie.director());
-        assertEquals("Incorrect year", expectedYear, movie.year());
-        assertEquals("Incorrect rating", expectedRating, movie.rating());
+        assertEquals("Incorrect name", expectedName, movie.getName());
+        assertEquals("Incorrect director", expectedDirector, movie.getDirector());
+        assertEquals("Incorrect year", expectedYear, movie.getYear());
+        assertEquals("Incorrect rating", expectedRating, movie.getRating());
     }
 
     @Test
     public void testMovieConstructorWithCustomerAndBasicGetters(){
         Movie movie = new Movie("The Godfather", "Francis Ford Coppola", 1972, 9, "123-1234");
-        assertEquals("Incorrect name", expectedName, movie.name());
-        assertEquals("Incorrect director", expectedDirector, movie.director());
-        assertEquals("Incorrect year", expectedYear, movie.year());
-        assertEquals("Incorrect rating", expectedRating, movie.rating());
-        assertEquals("Incorrect userid", expectedUserID,movie.userID());
+        assertEquals("Incorrect name", expectedName, movie.getName());
+        assertEquals("Incorrect director", expectedDirector, movie.getDirector());
+        assertEquals("Incorrect year", expectedYear, movie.getYear());
+        assertEquals("Incorrect rating", expectedRating, movie.getRating());
+        assertEquals("Incorrect userid", expectedUserID,movie.getUserID());
     }
 
     @Test(timeout=5000)
@@ -86,15 +86,15 @@ public class MovieTest {
     @Test
     public void testNullRatingInMovieConstructor() throws Exception{
         Movie movie = new Movie(expectedName, expectedDirector, expectedYear, null);
-        assertEquals("Incorrect rating", null, movie.rating());
+        assertEquals("Incorrect rating", null, movie.getRating());
     }
 
     @Test
     public void testSetUserGetUser() throws Exception {
         typicalMovie.setUser("123-1234");
-        assertEquals("Incorrect UserID", expectedUserID, typicalMovie.userID());
+        assertEquals("Incorrect UserID", expectedUserID, typicalMovie.getUserID());
         typicalMovie.setUser(null);
-        assertEquals("Incorrect UserID", null, typicalMovie.userID());
+        assertEquals("Incorrect UserID", null, typicalMovie.getUserID());
     }
 
     @Test(expected = InvalidUserException.class, timeout=5000)

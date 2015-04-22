@@ -24,7 +24,7 @@ public class Book extends LibraryItem {
         setUser(userID);
     }
 
-    public String author(){
+    public String getAuthor(){
         return author;
     }
 
@@ -61,7 +61,7 @@ public class Book extends LibraryItem {
     @Override
     public String toString() {
         String availableFlag = isCheckedOut() ? "available" : "checked out";
-        return (name() + " by " + author() + " (" + year() + ") : " + availableFlag);
+        return (name + " by " + author + " (" + year + ") : " + availableFlag);
     }
 
 }

@@ -21,15 +21,15 @@ abstract public class LibraryItem {
         }
     }
 
-    public String name(){
+    public String getName(){
         return name;
     }
 
-    public String userID(){
+    public String getUserID(){
         return userID;
     }
 
-    public int year(){
+    public int getYear(){
         return year;
     }
 

@@ -14,41 +14,41 @@ public class MovieCollectionTest {
 
     @Test
     public void testContainsMovie() throws Exception {
-        assertTrue("ContainsMovie should be true", movieCollection.containsItem(availableMovie.name()));
-        assertFalse("ContainsMovie should be false", movieCollection.containsItem(notFoundMovie.name()));
+        assertTrue("ContainsMovie should be true", movieCollection.containsItem(availableMovie.getName()));
+        assertFalse("ContainsMovie should be false", movieCollection.containsItem(notFoundMovie.getName()));
     }
 
     @Test
     public void testIsMovieAvailable(){
-        assertTrue("IsMovieAvailable should be true", movieCollection.isItemAvailable(availableMovie.name()));
-        assertFalse("IsMovieAvailable should be false", movieCollection.isItemAvailable(checkedOutMovie.name()));
+        assertTrue("IsMovieAvailable should be true", movieCollection.isItemAvailable(availableMovie.getName()));
+        assertFalse("IsMovieAvailable should be false", movieCollection.isItemAvailable(checkedOutMovie.getName()));
     }
 
     @Test
     public void testGetMovie() throws Exception {
-        Movie retrievedMovie = movieCollection.getItem(availableMovie.name());
+        Movie retrievedMovie = movieCollection.getItem(availableMovie.getName());
         assertEquals("Incorrect movie", availableMovie, retrievedMovie);
     }
 
 
     @Test
     public void testCheckOutMovie() throws Exception {
-        assertEquals("Movie does not exist in library", movieCollection.checkOutItem(notFoundMovie.name(), userID));
-        assertEquals("Movie is currently unavailable for checkout", movieCollection.checkOutItem(checkedOutMovie.name(), userID));
-        assertEquals("Thank you! Enjoy the movie", movieCollection.checkOutItem(availableMovie.name(), userID));
+        assertEquals("Movie does not exist in library", movieCollection.checkOutItem(notFoundMovie.getName(), userID));
+        assertEquals("Movie is currently unavailable for checkout", movieCollection.checkOutItem(checkedOutMovie.getName(), userID));
+        assertEquals("Thank you! Enjoy the movie", movieCollection.checkOutItem(availableMovie.getName(), userID));
 
-        Movie checkedOutmovie = movieCollection.getItem(availableMovie.name());
-        assertEquals("Incorrect checkout",userID, checkedOutmovie.userID());
+        Movie checkedOutmovie = movieCollection.getItem(availableMovie.getName());
+        assertEquals("Incorrect checkout",userID, checkedOutmovie.getUserID());
     }
 
     @Test
     public void testReturnMovie() throws Exception {
-        assertEquals("Movie does not exist in library", movieCollection.returnItem(notFoundMovie.name()));
-        assertEquals("Movie has already been returned", movieCollection.returnItem(availableMovie2.name()));
-        assertEquals("Thank you for returning the movie", movieCollection.returnItem(checkedOutMovie.name()));
+        assertEquals("Movie does not exist in library", movieCollection.returnItem(notFoundMovie.getName()));
+        assertEquals("Movie has already been returned", movieCollection.returnItem(availableMovie2.getName()));
+        assertEquals("Thank you for returning the movie", movieCollection.returnItem(checkedOutMovie.getName()));
 
-        Movie returnedMovie = movieCollection.getItem(checkedOutMovie.name());
-        assertEquals("Incorrect return", null, returnedMovie.userID());
+        Movie returnedMovie = movieCollection.getItem(checkedOutMovie.getName());
+        assertEquals("Incorrect return", null, returnedMovie.getUserID());
     }
 
     @Test
