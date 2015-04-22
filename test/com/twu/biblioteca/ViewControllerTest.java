@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.Library;
+import com.twu.biblioteca.helpers.StringConstants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -41,12 +42,12 @@ public class ViewControllerTest {
     private String listBooksLowercase = "list books";
     private String listBooksUppercase = "LIST BOOKS";
     private String listbooksSpaceBeforeAfter = "   List Books    ";
-    private String CheckoutNothing = "Checkout";
-    private String CheckoutBookNotExist = "Checkout The Giver";
-    private String CheckoutBookNotAvailable = "Checkout The Catcher in the Rye";
-    private String CheckoutCorrect = "Checkout The Little Prince";
-    private String CheckoutBookLowercase = "checkout the little prince";
-    private String CheckoutBookSpaceBeforeAfter = "   Checkout The Little Prince    ";
+    private String checkoutNothing = "Checkout";
+    private String checkoutBookNotExist = "Checkout The Giver";
+    private String checkoutBookNotAvailable = "Checkout The Catcher in the Rye";
+    private String checkoutCorrect = "Checkout The Little Prince";
+    private String checkoutBookLowercase = "checkout the little prince";
+    private String checkoutBookSpaceBeforeAfter = "   Checkout The Little Prince    ";
 
     private String quit = "quit";
 
@@ -111,7 +112,6 @@ public class ViewControllerTest {
     @Test
     public void testMainMenuViewErrors(){
         assertEqualsWithExit(expectedMainMenuViewErrorsOutput);
-
         String mockInput= nothing+nextInput
                 +oneSpace+nextInput
                 +randomLetters+nextInput
@@ -119,6 +119,7 @@ public class ViewControllerTest {
                 +lettersWithSpacesBetween+nextInput
                 +lettersWithSpacesBeforeAfter+nextInput
                 +quit;
+
         setupInputStream(mockInput);
 
         executeMainMenuView();
@@ -172,6 +173,22 @@ public class ViewControllerTest {
         executeLibraryView();
     }
 
+    @Test
+    public void testLibraryViewErrors(){
+        assertEqualsWithExit(expectedLibraryViewErrorsOutput);
+        String mockInput= nothing+nextInput
+                +oneSpace+nextInput
+                +randomLetters+nextInput
+                +nothing+nextInput
+                +checkoutNothing+nextInput
+                +checkoutBookNotExist+nextInput
+                +checkoutBookNotAvailable+nextInput
+                +quit;
+        setupInputStream(mockInput);
+
+        executeLibraryView();
+    }
+
     private void executeLibraryView() {
         ViewController vc = new ViewController(library, reader);
         vc.libraryView();
@@ -192,7 +209,9 @@ public class ViewControllerTest {
         });
     }
 
-    private String expectedWelcomeViewOutput="WELCOME TO BIBLIOTECA!\n" +
+
+    private String expectedWelcomeViewOutput=
+            StringConstants.WELCOME_MSG.toUpperCase() + StringConstants.LS+
             "(to exit application enter quit at any time)\n" +
             "What's your library user id?:\n" +
             "(Please type a valid name)\n" +
@@ -271,6 +290,47 @@ public class ViewControllerTest {
             "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
             "to return a book enter: Return \"Book Name\" (no quotes)\n" +
             "to go back to main menu enter: back\n" +
+            "Please enter a command\n" +
+            "Thank you. Goodbye!\n";
+
+    private String expectedLibraryViewErrorsOutput="============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+            "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+            "to go back to main menu enter: back\n" +
+            "Please enter a command\n" +
+            "Invalid library command\n" +
+            "Please enter a command\n" +
+            "Invalid library command\n" +
+            "Please enter a command\n" +
+            "Invalid library command\n" +
+            "Please enter a command\n" +
+            "Invalid library command\n" +
+            "Please enter a command\n" +
+            "Invalid library command\n" +
+            "Please enter a command\n" +
+            "Book does not exist in library\n" +
+            "============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "Please enter a command\n" +
+            "Book is currently unavailable for checkout\n" +
+            "============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
             "Please enter a command\n" +
             "Thank you. Goodbye!\n";
 }
