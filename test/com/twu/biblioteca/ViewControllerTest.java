@@ -75,9 +75,8 @@ public class ViewControllerTest {
 
     @Test
     public void testWelcomeViewQuit(){
-        assertEqualsWithExit(
-                "WELCOME TO BIBLIOTECA!\n" +
-                        "(to exit application enter quit at any time)\n" +
+        assertEqualsWithExit("WELCOME TO BIBLIOTECA!\n" +
+                        "(to exit application at any time enter: quit)\n" +
                         "What's your library user id?:\n" +
                         "Thank you. Goodbye!\n");
         executeViewWithInput(WELCOME_VIEW, quit);
@@ -256,26 +255,20 @@ public class ViewControllerTest {
         executeViewWithInput(LIBRARY_VIEW, mockInput + requiredEnding);
     }
 
-    private String expectedWelcomeViewOutput=
-            StringConstants.WELCOME_MSG.toUpperCase() + StringConstants.LS+
-            "(to exit application enter quit at any time)\n" +
-            "What's your library user id?:\n" +
-            "(Please type a valid name)\n" +
-
-            "What's your library user id?:\n" +
-            "(Please type a valid name)\n" +
-
-            "What's your library user id?:\n" +
-            "(Please type a valid name)\n" +
-
-            "What's your library user id?:\n" +
-            "(Please type a valid name)\n" +
-
-            "What's your library user id?:\n" +
-            "(Please type a valid name)\n" +
-
-            "What's your library user id?:\n" +
-            "Hi 123-1234\n";
+    private String expectedWelcomeViewOutput=   "WELCOME TO BIBLIOTECA!\n" +
+                    "(to exit application at any time enter: quit)\n" +
+                    "What's your library user id?:\n" +
+                    "[ Please type a valid user id with format xxx-xxxx (eg. 123-1234) ]\n" +
+                    "What's your library user id?:\n" +
+                    "[ Please type a valid user id with format xxx-xxxx (eg. 123-1234) ]\n" +
+                    "What's your library user id?:\n" +
+                    "[ Please type a valid user id with format xxx-xxxx (eg. 123-1234) ]\n" +
+                    "What's your library user id?:\n" +
+                    "[ Please type a valid user id with format xxx-xxxx (eg. 123-1234) ]\n" +
+                    "What's your library user id?:\n" +
+                    "[ Please type a valid user id with format xxx-xxxx (eg. 123-1234) ]\n" +
+                    "What's your library user id?:\n" +
+                    "Hi 123-1234\n";
 
     private String expectedMainMenuViewQuitOutput=
             "============================================================================================================\n" +
@@ -292,17 +285,17 @@ public class ViewControllerTest {
             "List Movies\n" +
             "============================================================================================================\n" +
             "Please choose a menu option\n" +
-            "Invalid option\n" +
+            "[ Invalid option ]\n" +
             "Please choose a menu option\n" +
-            "Invalid option\n" +
+            "[ Invalid option ]\n" +
             "Please choose a menu option\n" +
-            "Invalid option\n" +
+            "[ Invalid option ]\n" +
             "Please choose a menu option\n" +
-            "Invalid option\n" +
+            "[ Invalid option ]\n" +
             "Please choose a menu option\n" +
-            "Invalid option\n" +
+            "[ Invalid option ]\n" +
             "Please choose a menu option\n" +
-            "Invalid option\n" +
+            "[ Invalid option ]\n" +
             "Please choose a menu option\n" +
             "Thank you. Goodbye!\n";
 
@@ -350,13 +343,13 @@ public class ViewControllerTest {
             "to return a book enter: Return \"Book Name\" (no quotes)\n" +
             "to go back to main menu enter: back\n" +
             "Please enter a command\n" +
-            "Invalid library command\n" +
+            "[ Invalid library command ]\n" +
             "Please enter a command\n" +
-            "Invalid library command\n" +
+            "[ Invalid library command ]\n" +
             "Please enter a command\n" +
-            "Invalid library command\n" +
+            "[ Invalid library command ]\n" +
             "Please enter a command\n" +
-            "Invalid library command\n" +
+            "[ Invalid library command ]\n" +
             "Please enter a command\n" +
             "Thank you. Goodbye!\n";
 
@@ -371,9 +364,9 @@ public class ViewControllerTest {
             "to return a book enter: Return \"Book Name\" (no quotes)\n" +
             "to go back to main menu enter: back\n" +
             "Please enter a command\n" +
-            "Invalid library command\n" +
+            "[ Invalid library command ]\n" +
             "Please enter a command\n" +
-            "Book does not exist in library\n" +
+            "[ Book does not exist in library ]\n" +
             "============================================================================================================\n" +
             "LIST OF BOOKS\n" +
             "NAME                                                         AUTHOR                                     YEAR\n" +
@@ -382,7 +375,7 @@ public class ViewControllerTest {
             "The Hunger Games                                             Suzanne Collins                            2008\n" +
             "============================================================================================================\n" +
             "Please enter a command\n" +
-            "Book is currently unavailable for checkout\n" +
+            "[ Book is currently unavailable for checkout ]\n" +
             "============================================================================================================\n" +
             "LIST OF BOOKS\n" +
             "NAME                                                         AUTHOR                                     YEAR\n" +
@@ -426,9 +419,9 @@ public class ViewControllerTest {
             "to return a book enter: Return \"Book Name\" (no quotes)\n" +
             "to go back to main menu enter: back\n" +
             "Please enter a command\n" +
-            "Invalid library command\n" +
+            "[ Invalid library command ]\n" +
             "Please enter a command\n" +
-            "Book does not exist in library\n" +
+            "[ Book does not exist in library ]\n" +
             "============================================================================================================\n" +
             "LIST OF BOOKS\n" +
             "NAME                                                         AUTHOR                                     YEAR\n" +
@@ -437,7 +430,7 @@ public class ViewControllerTest {
             "The Hunger Games                                             Suzanne Collins                            2008\n" +
             "============================================================================================================\n" +
             "Please enter a command\n" +
-            "Book has already been returned\n" +
+            "[ Book has already been returned ]\n" +
             "============================================================================================================\n" +
             "LIST OF BOOKS\n" +
             "NAME                                                         AUTHOR                                     YEAR\n" +

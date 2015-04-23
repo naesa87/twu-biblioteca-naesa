@@ -61,32 +61,32 @@ public class Library {
     public String checkOutBook(String bookName, String customer){
 
         if (!containsBook(bookName)){
-            return "Book does not exist in library";
+            return "[ Book does not exist in library ]";
         }
         if (!isBookAvailable(bookName)){
-            return "Book is currently unavailable for checkout";
+            return "[ Book is currently unavailable for checkout ]";
         }
         try {
             Book book = getBook(bookName);
             book.setUser(customer);
         }catch (Exception e){
-            return "Book could not be checked out";
+            return "[ Book could not be checked out ]";
         }
         return "Thank you! Enjoy the book" ;
     }
 
     public String returnBook(String bookName){
         if (!containsBook(bookName)){
-            return "Book does not exist in library";
+            return "[ Book does not exist in library ]";
         }
         if (isBookAvailable(bookName)){
-            return "Book has already been returned";
+            return "[ Book has already been returned ]";
         }
         try {
             Book book = getBook(bookName);
             book.setUser(null);
         }catch (Exception e){
-            return "Book could not be returned";
+            return "[ Book could not be returned ]";
         }
         return "Thank you for returning the book" ;
     }

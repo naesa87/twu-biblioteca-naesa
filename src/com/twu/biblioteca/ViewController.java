@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.helpers.StringConstants;
 import com.twu.biblioteca.helpers.ValidationHelper;
 import com.twu.biblioteca.models.Library;
 import com.twu.biblioteca.models.MainMenu;
@@ -10,20 +11,8 @@ import java.util.List;
 
 public class ViewController {
 
-    private static final String QUIT = "quit";
+
     private static final MainMenu mainMenu = new MainMenu();
-    private static final String WELCOME_MSG= "Welcome to Biblioteca!";
-    private static final String BYE_MSG = "Thank you. Goodbye!";
-    private static final String NAME_PROMPT = "What's your library user id?:";
-    private static final String NAME_ERROR = "(Please type a valid name)";
-    private static final String MENU_PROMPT = "Please choose a menu option";
-    private static final String MENU_ERROR = "Invalid option";
-    private static final String LIBRARY_PROMPT = "Please enter a command";
-    private static final String LIBRARY_ERROR = "Invalid library command";
-    private static final String QUIT_INSTRUCTION = "(to exit application enter quit at any time)";
-    private static final String LIBRARY_INSTRUCTIONS = "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n"
-            +"to return a book enter: Return \"Book Name\" (no quotes)\n"+
-            "to go back to main menu enter: back";
 
     private Library library;
     private String customer;
@@ -35,9 +24,9 @@ public class ViewController {
     }
 
     public void welcomeView(){
-        display(WELCOME_MSG.toUpperCase());
-        display(QUIT_INSTRUCTION);
-        display(NAME_PROMPT);
+        display(StringConstants.WELCOME_MSG.toUpperCase());
+        display(StringConstants.QUIT_INSTRUCTION);
+        display(StringConstants.NAME_PROMPT);
         try {
             while (true){
                 customer = reader.readLine().trim();
@@ -46,8 +35,8 @@ public class ViewController {
                     display("Hi " + customer);
                     return;
                 }
-                display(NAME_ERROR);
-                display(NAME_PROMPT);
+                display(StringConstants.NAME_ERROR);
+                display(StringConstants.NAME_PROMPT);
             }
         }
         catch (IOException ex){
@@ -61,12 +50,12 @@ public class ViewController {
         String command;
         try{
             while(true){
-                display(MENU_PROMPT);
+                display(StringConstants.MENU_PROMPT);
                 command = reader.readLine();
 
                 checkForQuitRequest(command);
                 boolean validOption = isValidMainMenuOption(command);
-                if(!validOption) { display(MENU_ERROR); }
+                if(!validOption) { display(StringConstants.MENU_ERROR); }
 
                 executeOption(command);
             }
@@ -79,11 +68,11 @@ public class ViewController {
 
     public void libraryView(){
         displayAvailableBooks();
-        display(LIBRARY_INSTRUCTIONS);
+        display(StringConstants.LIBRARY_INSTRUCTIONS);
         String command;
         try{
             while(true){
-                display(LIBRARY_PROMPT);
+                display(StringConstants.LIBRARY_PROMPT);
 
                 command = reader.readLine();
                 checkForQuitRequest(command);
@@ -92,7 +81,7 @@ public class ViewController {
                 if (checkForTwoPartsOfCommand(command)) continue;
 
                 boolean validCommand = executeLibraryCommand(command);
-                if(!validCommand) { display(LIBRARY_ERROR); }
+                if(!validCommand) { display(StringConstants.LIBRARY_ERROR); }
             }
         }
         catch (IOException ex){
@@ -115,13 +104,13 @@ public class ViewController {
     }
 
     private void exit(){
-        display(BYE_MSG);
+        display(StringConstants.BYE_MSG);
         System.exit(0);
     }
 
     private boolean checkForTwoPartsOfCommand(String command) {
         if(command.trim().indexOf(" ") == -1){
-            display(LIBRARY_ERROR);
+            display(StringConstants.LIBRARY_ERROR);
             return true;
         }
         return false;
@@ -157,7 +146,7 @@ public class ViewController {
     }
 
     private void checkForQuitRequest(String result) {
-        if (result.trim().equalsIgnoreCase(QUIT)){
+        if (result.trim().equalsIgnoreCase(StringConstants.QUIT)){
             exit();
         }
     }
