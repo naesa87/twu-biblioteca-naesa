@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import static com.twu.biblioteca.helpers.StringConstants.*;
 import com.twu.biblioteca.helpers.ValidationHelper;
+import com.twu.biblioteca.models.BookCollection;
 import com.twu.biblioteca.models.Library;
 import com.twu.biblioteca.models.MainMenu;
 import java.io.BufferedReader;
@@ -14,11 +15,11 @@ public class ViewController {
 
     private static final MainMenu mainMenu = new MainMenu();
 
-    private Library library;
+    private BookCollection library;
     private String customer;
     private BufferedReader reader;
 
-    public ViewController(Library library, BufferedReader reader){
+    public ViewController(BookCollection library, BufferedReader reader){
         this.library = library;
         this.reader = reader;
     }
@@ -100,7 +101,7 @@ public class ViewController {
     }
 
     private void displayAvailableBooks() {
-        display(library.getlistOfBooks(true));
+        display(library.getLibraryCollection(true));
     }
 
     private void exit(){
@@ -129,12 +130,12 @@ public class ViewController {
         String book = commandSplit[1].trim();
 
         if (task.equalsIgnoreCase("Checkout")){
-            display(library.checkOutBook(book, customer));
+            display(library.checkOutItem(book, customer));
             displayAvailableBooks();
             return true;
         }
         if (task.equalsIgnoreCase("Return")){
-            display(library.returnBook(book));
+            display(library.returnItem(book));
             displayAvailableBooks();
             return true;
         }

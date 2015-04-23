@@ -34,8 +34,8 @@ public class BookCollectionTest {
 
     @Test
     public void testCheckOutBook() throws Exception {
-        assertEquals("Book does not exist in library", bookCollection.checkOutItem(notFoundBook.getName(), customer));
-        assertEquals("Book is currently unavailable for checkout", bookCollection.checkOutItem(checkedOutBook.getName(), customer));
+        assertEquals("[ Book does not exist in library ]", bookCollection.checkOutItem(notFoundBook.getName(), customer));
+        assertEquals("[ Book is currently unavailable for checkout ]", bookCollection.checkOutItem(checkedOutBook.getName(), customer));
         assertEquals("Thank you! Enjoy the book", bookCollection.checkOutItem(availableBook.getName(), customer));
 
         Book checkedOutbook = bookCollection.getItem(availableBook.getName());
@@ -44,8 +44,8 @@ public class BookCollectionTest {
 
     @Test
     public void testReturnBook() throws Exception {
-        assertEquals("Book does not exist in library", bookCollection.returnItem(notFoundBook.getName()));
-        assertEquals("Book has already been returned", bookCollection.returnItem(availableBook2.getName()));
+        assertEquals("[ Book does not exist in library ]", bookCollection.returnItem(notFoundBook.getName()));
+        assertEquals("[ Book has already been returned ]", bookCollection.returnItem(availableBook2.getName()));
         assertEquals("Thank you for returning the book", bookCollection.returnItem(checkedOutBook.getName()));
 
         Book returnedBook = bookCollection.getItem(checkedOutBook.getName());

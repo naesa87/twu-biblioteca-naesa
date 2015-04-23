@@ -33,8 +33,8 @@ public class MovieCollectionTest {
 
     @Test
     public void testCheckOutMovie() throws Exception {
-        assertEquals("Movie does not exist in library", movieCollection.checkOutItem(notFoundMovie.getName(), userID));
-        assertEquals("Movie is currently unavailable for checkout", movieCollection.checkOutItem(checkedOutMovie.getName(), userID));
+        assertEquals("[ Movie does not exist in library ]", movieCollection.checkOutItem(notFoundMovie.getName(), userID));
+        assertEquals("[ Movie is currently unavailable for checkout ]", movieCollection.checkOutItem(checkedOutMovie.getName(), userID));
         assertEquals("Thank you! Enjoy the movie", movieCollection.checkOutItem(availableMovie.getName(), userID));
 
         Movie checkedOutmovie = movieCollection.getItem(availableMovie.getName());
@@ -43,8 +43,8 @@ public class MovieCollectionTest {
 
     @Test
     public void testReturnMovie() throws Exception {
-        assertEquals("Movie does not exist in library", movieCollection.returnItem(notFoundMovie.getName()));
-        assertEquals("Movie has already been returned", movieCollection.returnItem(availableMovie2.getName()));
+        assertEquals("[ Movie does not exist in library ]", movieCollection.returnItem(notFoundMovie.getName()));
+        assertEquals("[ Movie has already been returned ]", movieCollection.returnItem(availableMovie2.getName()));
         assertEquals("Thank you for returning the movie", movieCollection.returnItem(checkedOutMovie.getName()));
 
         Movie returnedMovie = movieCollection.getItem(checkedOutMovie.getName());

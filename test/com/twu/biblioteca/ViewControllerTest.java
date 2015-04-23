@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.models.BookCollection;
 import com.twu.biblioteca.models.Library;
 import org.junit.After;
 import org.junit.Before;
@@ -28,7 +29,7 @@ public class ViewControllerTest {
     private final String LIBRARY_VIEW = "LibraryView";
 
 
-    private Library library = new Library();
+    private BookCollection library = new BookCollection();
     private String nextInput = System.getProperty("line.separator");
     private ByteArrayInputStream inContent;
     BufferedReader reader;
