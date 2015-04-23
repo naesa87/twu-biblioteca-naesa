@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.helpers.StringConstants;
+import static com.twu.biblioteca.helpers.StringConstants.*;
 import com.twu.biblioteca.helpers.ValidationHelper;
 import com.twu.biblioteca.models.Library;
 import com.twu.biblioteca.models.MainMenu;
@@ -24,9 +24,9 @@ public class ViewController {
     }
 
     public void welcomeView(){
-        display(StringConstants.WELCOME_MSG.toUpperCase());
-        display(StringConstants.QUIT_INSTRUCTION);
-        display(StringConstants.NAME_PROMPT);
+        display(WELCOME_MSG.toUpperCase());
+        display(QUIT_INSTRUCTION);
+        display(NAME_PROMPT);
         try {
             while (true){
                 customer = reader.readLine().trim();
@@ -35,8 +35,8 @@ public class ViewController {
                     display("Hi " + customer);
                     return;
                 }
-                display(StringConstants.NAME_ERROR);
-                display(StringConstants.NAME_PROMPT);
+                display(NAME_ERROR);
+                display(NAME_PROMPT);
             }
         }
         catch (IOException ex){
@@ -50,12 +50,12 @@ public class ViewController {
         String command;
         try{
             while(true){
-                display(StringConstants.MENU_PROMPT);
+                display(MENU_PROMPT);
                 command = reader.readLine();
 
                 checkForQuitRequest(command);
                 boolean validOption = isValidMainMenuOption(command);
-                if(!validOption) { display(StringConstants.MENU_ERROR); }
+                if(!validOption) { display(MENU_ERROR); }
 
                 executeOption(command);
             }
@@ -68,11 +68,11 @@ public class ViewController {
 
     public void libraryView(){
         displayAvailableBooks();
-        display(StringConstants.LIBRARY_INSTRUCTIONS);
+        display(LIBRARY_INSTRUCTIONS);
         String command;
         try{
             while(true){
-                display(StringConstants.LIBRARY_PROMPT);
+                display(LIBRARY_PROMPT);
 
                 command = reader.readLine();
                 checkForQuitRequest(command);
@@ -81,7 +81,7 @@ public class ViewController {
                 if (checkForTwoPartsOfCommand(command)) continue;
 
                 boolean validCommand = executeLibraryCommand(command);
-                if(!validCommand) { display(StringConstants.LIBRARY_ERROR); }
+                if(!validCommand) { display(LIBRARY_ERROR); }
             }
         }
         catch (IOException ex){
@@ -104,13 +104,13 @@ public class ViewController {
     }
 
     private void exit(){
-        display(StringConstants.BYE_MSG);
+        display(BYE_MSG);
         System.exit(0);
     }
 
     private boolean checkForTwoPartsOfCommand(String command) {
         if(command.trim().indexOf(" ") == -1){
-            display(StringConstants.LIBRARY_ERROR);
+            display(LIBRARY_ERROR);
             return true;
         }
         return false;
@@ -146,7 +146,7 @@ public class ViewController {
     }
 
     private void checkForQuitRequest(String result) {
-        if (result.trim().equalsIgnoreCase(StringConstants.QUIT)){
+        if (result.trim().equalsIgnoreCase(QUIT)){
             exit();
         }
     }

@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.Library;
-import com.twu.biblioteca.helpers.StringConstants;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -59,7 +58,6 @@ public class ViewControllerTest {
     private String returnBookLowercase = "return the catcher in the rye";
     private String returnBookSpaceBeforeAfter = "   Return The Catcher in the Rye    ";
     private String back = "back";
-
     private String quit = "quit";
 
     @Before
