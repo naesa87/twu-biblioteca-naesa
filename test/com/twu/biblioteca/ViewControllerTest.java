@@ -24,10 +24,14 @@ public class ViewControllerTest {
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private ByteArrayInputStream inContent;
-    
+    private final String WELCOME_VIEW = "WelcomeView";
+    private final String MAIN_MENU_VIEW = "MainMenuView";
+    private final String LIBRARY_VIEW = "LibraryView";
+
+
     private Library library = new Library();
     private String nextInput = System.getProperty("line.separator");
+    private ByteArrayInputStream inContent;
     BufferedReader reader;
 
     //inputs
@@ -45,9 +49,16 @@ public class ViewControllerTest {
     private String checkoutNothing = "Checkout";
     private String checkoutBookNotExist = "Checkout The Giver";
     private String checkoutBookNotAvailable = "Checkout The Catcher in the Rye";
-    private String checkoutCorrect = "Checkout The Little Prince";
+    private String checkoutBookCorrect = "Checkout The Little Prince";
     private String checkoutBookLowercase = "checkout the little prince";
     private String checkoutBookSpaceBeforeAfter = "   Checkout The Little Prince    ";
+    private String returnNothing = "Return";
+    private String returnBookNotExist = "Return The Giver";
+    private String returnBookNotAvailable = "Return The Little Prince";
+    private String returnBookCorrect = "Return The Catcher in the Rye";
+    private String returnBookLowercase = "return the catcher in the rye";
+    private String returnBookSpaceBeforeAfter = "   Return The Catcher in the Rye    ";
+    private String back = "back";
 
     private String quit = "quit";
 
@@ -66,28 +77,21 @@ public class ViewControllerTest {
     public void testWelcomeViewQuit(){
         assertEqualsWithExit(
                 "WELCOME TO BIBLIOTECA!\n" +
-                "(to exit application enter quit at any time)\n" +
-                "What's your library user id?:\n" +
-                "Thank you. Goodbye!\n");
-
-        setupInputStream(quit);
-        ViewController vc = new ViewController(library, reader);
-        vc.welcomeView();
+                        "(to exit application enter quit at any time)\n" +
+                        "What's your library user id?:\n" +
+                        "Thank you. Goodbye!\n");
+        executeViewWithInput(WELCOME_VIEW, quit);
     }
 
     @Test
     public void testWelcomeView(){
-
         String mockInput= nothing+nextInput
                         +oneSpace+nextInput
                         +randomLetters+nextInput
                         +nothing+nextInput
                         +numbersWrongFormatUserId+nextInput
                         +correctFormatUserId;
-        setupInputStream(mockInput);
-
-        ViewController vc = new ViewController(library, reader);
-        vc.welcomeView();
+        executeViewWithInput(WELCOME_VIEW, mockInput);
         assertEquals(expectedWelcomeViewOutput, outContent.toString());
     }
 
@@ -95,20 +99,10 @@ public class ViewControllerTest {
     @Test
     public void testMainMenuViewQuit(){
         assertEqualsWithExit(expectedMainMenuViewQuitOutput);
-        setupInputStream(quit);
-
-        executeMainMenuView();
-    }
-
-    private void executeMainMenuView() {
-        ViewController vc = new ViewController(library, reader);
-        vc.mainMenuView();
+        executeViewWithInput(MAIN_MENU_VIEW, quit);
     }
 
 
-
-    // need exit protocol as quiting is the only way to leave MainMenuView
-    // without entering another view
     @Test
     public void testMainMenuViewErrors(){
         assertEqualsWithExit(expectedMainMenuViewErrorsOutput);
@@ -119,79 +113,120 @@ public class ViewControllerTest {
                 +lettersWithSpacesBetween+nextInput
                 +lettersWithSpacesBeforeAfter+nextInput
                 +quit;
-
-        setupInputStream(mockInput);
-
-        executeMainMenuView();
+        executeViewWithInput(MAIN_MENU_VIEW, mockInput);
     }
 
     @Test
     public void testMainMenuViewListBooksOption(){
-        assertEqualsWithExit(expectedMainMenuViewCorrectOptionOutput);
-
-        String mockInput= listBooksTypical+nextInput +quit;
-        setupInputStream(mockInput);
-
-        executeMainMenuView();
+        assertCorrectMainMenuOption(listBooksTypical);
     }
 
     @Test
     public void testMainMenuViewListBooksOptionLowercase(){
-        assertEqualsWithExit(expectedMainMenuViewCorrectOptionOutput);
-
-        String mockInput= listBooksLowercase+nextInput +quit;
-        setupInputStream(mockInput);
-
-        executeMainMenuView();
+        assertCorrectMainMenuOption(listBooksLowercase);
     }
 
     @Test
     public void testMainMenuViewListBooksOptionUppercase(){
-        assertEqualsWithExit(expectedMainMenuViewCorrectOptionOutput);
-
-        String mockInput= listBooksUppercase+nextInput +quit;
-        setupInputStream(mockInput);
-
-        executeMainMenuView();
+        assertCorrectMainMenuOption(listBooksUppercase);
     }
 
     @Test
     public void testMainMenuViewListBooksOptionWithSpaces(){
-        assertEqualsWithExit(expectedMainMenuViewCorrectOptionOutput);
-
-        String mockInput= listbooksSpaceBeforeAfter+nextInput +quit;
-        setupInputStream(mockInput);
-
-        executeMainMenuView();
+        assertCorrectMainMenuOption(listbooksSpaceBeforeAfter);
     }
+
+
 
     @Test
     public void testLibraryViewQuit(){
         assertEqualsWithExit(expectedLibraryViewQuitOutput);
-        setupInputStream(quit);
-
-        executeLibraryView();
+        executeViewWithInput(LIBRARY_VIEW, quit);
     }
 
     @Test
-    public void testLibraryViewErrors(){
-        assertEqualsWithExit(expectedLibraryViewErrorsOutput);
+    public void testLibraryViewCommandErrors(){
+        assertEqualsWithExit(expectedLibraryViewCommandErrorsOutput);
         String mockInput= nothing+nextInput
                 +oneSpace+nextInput
                 +randomLetters+nextInput
                 +nothing+nextInput
-                +checkoutNothing+nextInput
-                +checkoutBookNotExist+nextInput
-                +checkoutBookNotAvailable+nextInput
                 +quit;
-        setupInputStream(mockInput);
-
-        executeLibraryView();
+        executeViewWithInput(LIBRARY_VIEW, mockInput);
     }
 
-    private void executeLibraryView() {
+    @Test
+    public void testLibraryViewReturnErrors(){
+        assertEqualsWithExit(expectedLibraryViewReturnErrorsOutput);
+        String mockInput=
+                returnNothing+nextInput
+                +returnBookNotExist+nextInput
+                +returnBookNotAvailable+nextInput
+                +quit;
+        executeViewWithInput(LIBRARY_VIEW, mockInput);
+    }
+
+    @Test
+    public void testLibraryViewCorrectReturnCommand(){
+        assertCorrectLibraryOption(returnBookCorrect, expectedLibraryViewCorrectReturnOutput);
+    }
+
+    @Test
+    public void testLibraryViewCorrectReturnCommandLowercase(){
+        assertCorrectLibraryOption(returnBookLowercase, expectedLibraryViewCorrectReturnOutput);
+    }
+
+    @Test
+    public void testLibraryViewCorrectReturnCommandWithSpaces(){
+        assertCorrectLibraryOption(returnBookSpaceBeforeAfter, expectedLibraryViewCorrectReturnOutput);
+    }
+
+    @Test
+    public void testLibraryViewCheckoutErrors(){
+        assertEqualsWithExit(expectedLibraryViewCheckoutErrorsOutput);
+        String mockInput=
+                checkoutNothing+nextInput
+                        +checkoutBookNotExist+nextInput
+                        +checkoutBookNotAvailable+nextInput
+                        +quit;
+        executeViewWithInput(LIBRARY_VIEW, mockInput);
+    }
+
+    @Test
+    public void testLibraryViewCorrectCheckoutCommand(){
+        assertCorrectLibraryOption(checkoutBookCorrect, expectedLibraryViewCorrectCheckoutOutput);
+    }
+
+    @Test
+    public void testLibraryViewCorrectCheckoutCommandLowercase(){
+        assertCorrectLibraryOption(checkoutBookLowercase, expectedLibraryViewCorrectCheckoutOutput);
+    }
+
+    @Test
+    public void testLibraryViewCorrectCheckoutCommandWithSpaces(){
+        assertCorrectLibraryOption(checkoutBookSpaceBeforeAfter, expectedLibraryViewCorrectCheckoutOutput);
+    }
+
+
+    @Test
+    public void testLibraryViewBackCommand(){
+        executeViewWithInput(LIBRARY_VIEW, back);
+        assertEquals(expectedLibraryViewBackCommandOutput, outContent.toString());
+    }
+
+    @Test
+    public void testLibraryViewBackCommandWithSpaces(){
+        executeViewWithInput(LIBRARY_VIEW, back);
+        assertEquals(expectedLibraryViewBackCommandOutput, outContent.toString());
+    }
+    
+
+    private void executeViewWithInput(String view, String input) {
+        setupInputStream(input);
         ViewController vc = new ViewController(library, reader);
-        vc.libraryView();
+        if (view.equalsIgnoreCase(WELCOME_VIEW)) { vc.welcomeView();}
+        else if (view.equalsIgnoreCase(MAIN_MENU_VIEW)) { vc.mainMenuView();}
+        else if (view.equalsIgnoreCase(LIBRARY_VIEW)) {vc.libraryView();}
     }
 
     private void setupInputStream(String mockInput) {
@@ -209,6 +244,17 @@ public class ViewControllerTest {
         });
     }
 
+    private void assertCorrectMainMenuOption(String mockInput) {
+        String requiredEnding = nextInput+quit;
+        assertEqualsWithExit(expectedMainMenuViewCorrectOptionOutput);
+        executeViewWithInput(MAIN_MENU_VIEW, mockInput + requiredEnding);
+    }
+
+    private void assertCorrectLibraryOption(String mockInput, String expectedOutput) {
+        String requiredEnding = nextInput+quit;
+        assertEqualsWithExit(expectedOutput);
+        executeViewWithInput(LIBRARY_VIEW, mockInput + requiredEnding);
+    }
 
     private String expectedWelcomeViewOutput=
             StringConstants.WELCOME_MSG.toUpperCase() + StringConstants.LS+
@@ -293,7 +339,7 @@ public class ViewControllerTest {
             "Please enter a command\n" +
             "Thank you. Goodbye!\n";
 
-    private String expectedLibraryViewErrorsOutput="============================================================================================================\n" +
+    private String expectedLibraryViewCommandErrorsOutput="============================================================================================================\n" +
             "LIST OF BOOKS\n" +
             "NAME                                                         AUTHOR                                     YEAR\n" +
             "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
@@ -311,6 +357,19 @@ public class ViewControllerTest {
             "Invalid library command\n" +
             "Please enter a command\n" +
             "Invalid library command\n" +
+            "Please enter a command\n" +
+            "Thank you. Goodbye!\n";
+
+    private String expectedLibraryViewCheckoutErrorsOutput="============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+            "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+            "to go back to main menu enter: back\n" +
             "Please enter a command\n" +
             "Invalid library command\n" +
             "Please enter a command\n" +
@@ -333,4 +392,94 @@ public class ViewControllerTest {
             "============================================================================================================\n" +
             "Please enter a command\n" +
             "Thank you. Goodbye!\n";
+
+    private String expectedLibraryViewCorrectCheckoutOutput = "============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+            "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+            "to go back to main menu enter: back\n" +
+            "Please enter a command\n" +
+            "Thank you! Enjoy the book\n" +
+            "============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "Please enter a command\n" +
+            "Thank you. Goodbye!\n";
+
+    private String expectedLibraryViewReturnErrorsOutput="============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+            "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+            "to go back to main menu enter: back\n" +
+            "Please enter a command\n" +
+            "Invalid library command\n" +
+            "Please enter a command\n" +
+            "Book does not exist in library\n" +
+            "============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "Please enter a command\n" +
+            "Book has already been returned\n" +
+            "============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "Please enter a command\n" +
+            "Thank you. Goodbye!\n";
+
+    private String expectedLibraryViewCorrectReturnOutput ="============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+            "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+            "to go back to main menu enter: back\n" +
+            "Please enter a command\n" +
+            "Thank you for returning the book\n" +
+            "============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Catcher in the Rye                                       J.D. Salinger                              1951\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "Please enter a command\n" +
+            "Thank you. Goodbye!\n";
+
+    private String expectedLibraryViewBackCommandOutput = "============================================================================================================\n" +
+            "LIST OF BOOKS\n" +
+            "NAME                                                         AUTHOR                                     YEAR\n" +
+            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+            "The Hunger Games                                             Suzanne Collins                            2008\n" +
+            "============================================================================================================\n" +
+            "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+            "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+            "to go back to main menu enter: back\n" +
+            "Please enter a command\n";
 }
