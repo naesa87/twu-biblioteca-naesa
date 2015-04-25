@@ -223,7 +223,7 @@ public class ViewControllerTest {
         ViewController vc = new ViewController(library, reader);
         if (view.equalsIgnoreCase(WELCOME_VIEW)) { vc.welcomeView();}
         else if (view.equalsIgnoreCase(MAIN_MENU_VIEW)) { vc.mainMenuView();}
-        else if (view.equalsIgnoreCase(LIBRARY_VIEW)) {vc.libraryView();}
+        else if (view.equalsIgnoreCase(LIBRARY_VIEW)) {vc.bookCollectionView();}
     }
 
     private void setupInputStream(String mockInput) {

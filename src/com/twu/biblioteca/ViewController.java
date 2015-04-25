@@ -4,6 +4,8 @@ import static com.twu.biblioteca.helpers.StringConstants.*;
 import com.twu.biblioteca.helpers.ValidationHelper;
 import com.twu.biblioteca.models.BookCollection;
 import com.twu.biblioteca.models.MainMenu;
+import com.twu.biblioteca.models.User;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -14,12 +16,14 @@ public class ViewController {
 
     private static final MainMenu mainMenu = new MainMenu();
 
-    private BookCollection library;
+
+    private BookCollection bookCollection;
     private String customer;
+    private User user;
     private BufferedReader reader;
 
-    public ViewController(BookCollection library, BufferedReader reader){
-        this.library = library;
+    public ViewController(BookCollection bookCollection, BufferedReader reader){
+        this.bookCollection = bookCollection;
         this.reader = reader;
     }
 
@@ -66,7 +70,7 @@ public class ViewController {
     }
 
 
-    public void libraryView(){
+    public void bookCollectionView(){
         displayAvailableBooks();
         display(LIBRARY_INSTRUCTIONS);
         String command;
@@ -100,7 +104,7 @@ public class ViewController {
     }
 
     private void displayAvailableBooks() {
-        display(library.getLibraryCollection(true));
+        display(bookCollection.getLibraryCollection(true));
     }
 
     private void exit(){
@@ -118,7 +122,7 @@ public class ViewController {
 
     private void executeOption(String command) {
         if (command.trim().equalsIgnoreCase("List Books")){
-            libraryView();
+            bookCollectionView();
             display(mainMenu);
         }
     }
@@ -129,12 +133,12 @@ public class ViewController {
         String book = commandSplit[1].trim();
 
         if (task.equalsIgnoreCase("Checkout")){
-            display(library.checkOutItem(book, customer));
+            display(bookCollection.checkOutItem(book, customer));
             displayAvailableBooks();
             return true;
         }
         if (task.equalsIgnoreCase("Return")){
-            display(library.returnItem(book));
+            display(bookCollection.returnItem(book));
             displayAvailableBooks();
             return true;
         }
