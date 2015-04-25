@@ -17,7 +17,6 @@ public class ViewController {
     private BookCollection bookCollection;
     private MovieCollection movieCollection;
     private UserAccounts userAccounts;
-    private String customer;
     private User user;
     private BufferedReader reader;
 
@@ -34,13 +33,21 @@ public class ViewController {
         display(NAME_PROMPT);
         try {
             while (true){
-                customer = reader.readLine().trim();
-                checkForQuitRequest(customer);
-                if (isValidCustomerName()){
-                    display("Hi " + customer);
-                    return;
+                String line = reader.readLine().trim();
+                checkForQuitRequest(line);
+                if (isValidCustomerName(line)){
+                    display(PASSWORD_PROMPT);
+                    String password = reader.readLine();
+                    user = userAccounts.getUserIfValidPassword(line, password);
+                    if (user != null){
+                        display("Hi " + line);
+                        return;
+                    }else {
+                        display(PASSWORD_ERROR);
+                    }
+                }else {
+                    display(NAME_ERROR);
                 }
-                display(NAME_ERROR);
                 display(NAME_PROMPT);
             }
         }
@@ -97,6 +104,10 @@ public class ViewController {
         }
     }
 
+    public void setUser(User user){
+        this.user = user;
+    }
+
     private void displayCollectionInstructions(String bookOrMovie) {
         if (bookOrMovie == "book"){
             display(BOOK_COLLECTION_INSTRUCTIONS);
@@ -139,8 +150,7 @@ public class ViewController {
         } else if (command.trim().equalsIgnoreCase("List Movies")){
             collectionView("movie");
             display(mainMenu);
-        }
-        else if (command.trim().equalsIgnoreCase("List Movies")){
+        } else if (command.trim().equalsIgnoreCase("List Movies")){
             display(user.toString());
             display(mainMenu);
         }
@@ -152,7 +162,7 @@ public class ViewController {
         String item = commandSplit[1].trim();
 
         if (task.equalsIgnoreCase("Checkout")){
-            display(currentCollection.checkOutItem(item, customer));
+            display(currentCollection.checkOutItem(item, user.getUserID()));
             displayAvailableCollection(currentCollection);
             return true;
         }
@@ -175,7 +185,7 @@ public class ViewController {
         }
     }
 
-    private boolean isValidCustomerName() {
+    private boolean isValidCustomerName(String customer) {
         return customer != null && ValidationHelper.isValidUserID(customer);
     }
 

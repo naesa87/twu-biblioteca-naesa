@@ -24,7 +24,6 @@ public class BibliotecaAppTest {
     @Rule
     public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
 
-    private String nextInput = System.getProperty("line.separator");
 
 
 
@@ -40,7 +39,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void testRun() throws Exception {
-        systemInMock.provideText("123-1234\nlist books\nquit");
+        systemInMock.provideText("123-1234\npassword\nlist books\nquit");
         assertEqualsWithExit(expectedRunOutput);
         new BibliotecaApp().run();
     }
@@ -58,6 +57,7 @@ public class BibliotecaAppTest {
     private String expectedRunOutput="WELCOME TO BIBLIOTECA!\n" +
             "(to exit application at any time enter: quit)\n" +
             "What's your library user id?:\n" +
+            "What's your password?:\n" +
             "Hi 123-1234\n" +
             "============================================================================================================\n" +
             "MAIN MENU OPTIONS\n" +

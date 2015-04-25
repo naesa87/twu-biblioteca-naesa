@@ -7,6 +7,8 @@ public class StringConstants {
     public static final String BYE_MSG = "Thank you. Goodbye!";
     public static final String NAME_PROMPT = "What's your library user id?:";
     public static final String NAME_ERROR = "[ Please type a valid user id with format xxx-xxxx (eg. 123-1234) ]";
+    public static final String PASSWORD_PROMPT = "What's your password?:";
+    public static final String PASSWORD_ERROR = "[ The usedID or password you entered is incorrect. ]";
     public static final String MENU_PROMPT = "Please choose a menu option";
     public static final String MENU_ERROR = "[ Invalid option ]";
     public static final String LIBRARY_PROMPT = "Please enter a command";

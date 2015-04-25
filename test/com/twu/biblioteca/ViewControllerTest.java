@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.BookCollection;
 import com.twu.biblioteca.models.MovieCollection;
+import com.twu.biblioteca.models.User;
 import com.twu.biblioteca.models.UserAccounts;
 import org.junit.After;
 import org.junit.Before;
@@ -33,6 +34,7 @@ public class ViewControllerTest {
     private BookCollection bookCollection = new BookCollection();
     private MovieCollection movieCollection = new MovieCollection();
     private UserAccounts userAccounts = new UserAccounts();
+    private User user = userAccounts.getUserIfValidPassword("123-1234","password");
     private String nextInput = System.getProperty("line.separator");
     private ByteArrayInputStream inContent;
     BufferedReader reader;
@@ -45,6 +47,7 @@ public class ViewControllerTest {
     private String lettersWithSpacesBeforeAfter= "  asdf  ";
     private String numbersWrongFormatUserId = "1231234";
     private String correctFormatUserId = "123-1234";
+    private String password = "password";
     private String listBooksTypical = "List Books";
     private String listBooksLowercase = "list books";
     private String listBooksUppercase = "LIST BOOKS";
@@ -91,7 +94,8 @@ public class ViewControllerTest {
                         +randomLetters+nextInput
                         +nothing+nextInput
                         +numbersWrongFormatUserId+nextInput
-                        +correctFormatUserId;
+                        +correctFormatUserId+nextInput
+                        +password;
         executeViewWithInput(WELCOME_VIEW, mockInput);
         assertEquals(expectedWelcomeViewOutput, outContent.toString());
     }
@@ -227,7 +231,11 @@ public class ViewControllerTest {
         ViewController vc = new ViewController(bookCollection, movieCollection, userAccounts, reader);
         if (view.equalsIgnoreCase(WELCOME_VIEW)) { vc.welcomeView();}
         else if (view.equalsIgnoreCase(MAIN_MENU_VIEW)) { vc.mainMenuView();}
-        else if (view.equalsIgnoreCase(LIBRARY_VIEW)) {vc.collectionView("book");}
+        else if (view.equalsIgnoreCase(LIBRARY_VIEW))
+        {
+            vc.setUser(user);
+            vc.collectionView("book");
+        }
     }
 
     private void setupInputStream(String mockInput) {
@@ -270,6 +278,7 @@ public class ViewControllerTest {
                     "What's your library user id?:\n" +
                     "[ Please type a valid user id with format xxx-xxxx (eg. 123-1234) ]\n" +
                     "What's your library user id?:\n" +
+                    "What's your password?:\n"+
                     "Hi 123-1234\n";
 
     private String expectedMainMenuViewQuitOutput=
@@ -406,7 +415,6 @@ public class ViewControllerTest {
             "LIST OF BOOKS\n" +
             "NAME                                                         AUTHOR                                     YEAR\n" +
             "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
-            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
             "The Hunger Games                                             Suzanne Collins                            2008\n" +
             "============================================================================================================\n" +
             "Please enter a command\n" +
