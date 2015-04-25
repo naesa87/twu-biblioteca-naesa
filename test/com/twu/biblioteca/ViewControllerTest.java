@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.BookCollection;
 import com.twu.biblioteca.models.MovieCollection;
+import com.twu.biblioteca.models.UserAccounts;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,6 +32,7 @@ public class ViewControllerTest {
 
     private BookCollection bookCollection = new BookCollection();
     private MovieCollection movieCollection = new MovieCollection();
+    private UserAccounts userAccounts = new UserAccounts();
     private String nextInput = System.getProperty("line.separator");
     private ByteArrayInputStream inContent;
     BufferedReader reader;
@@ -222,7 +224,7 @@ public class ViewControllerTest {
 
     private void executeViewWithInput(String view, String input) {
         setupInputStream(input);
-        ViewController vc = new ViewController(bookCollection, movieCollection, reader);
+        ViewController vc = new ViewController(bookCollection, movieCollection, userAccounts, reader);
         if (view.equalsIgnoreCase(WELCOME_VIEW)) { vc.welcomeView();}
         else if (view.equalsIgnoreCase(MAIN_MENU_VIEW)) { vc.mainMenuView();}
         else if (view.equalsIgnoreCase(LIBRARY_VIEW)) {vc.collectionView("book");}
@@ -275,6 +277,7 @@ public class ViewControllerTest {
             "MAIN MENU OPTIONS\n" +
             "List Books\n" +
             "List Movies\n" +
+            "Account Information\n" +
             "============================================================================================================\n" +
             "Please choose a menu option\n" +
             "Thank you. Goodbye!\n";
@@ -283,6 +286,7 @@ public class ViewControllerTest {
             "MAIN MENU OPTIONS\n" +
             "List Books\n" +
             "List Movies\n" +
+            "Account Information\n" +
             "============================================================================================================\n" +
             "Please choose a menu option\n" +
             "[ Invalid option ]\n" +
@@ -304,7 +308,7 @@ public class ViewControllerTest {
                     "MAIN MENU OPTIONS\n" +
                     "List Books\n" +
                     "List Movies\n" +
-                    "============================================================================================================\n" +
+                    "Account Information\n" +                    "============================================================================================================\n" +
                     "Please choose a menu option\n" +
                     "============================================================================================================\n" +
                     "LIST OF BOOKS\n" +

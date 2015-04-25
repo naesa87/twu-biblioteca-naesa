@@ -14,16 +14,17 @@ public class ViewController {
 
     private static final MainMenu mainMenu = new MainMenu();
 
-
     private BookCollection bookCollection;
     private MovieCollection movieCollection;
+    private UserAccounts userAccounts;
     private String customer;
     private User user;
     private BufferedReader reader;
 
-    public ViewController(BookCollection bookCollection, MovieCollection movieCollection, BufferedReader reader){
+    public ViewController(BookCollection bookCollection, MovieCollection movieCollection, UserAccounts userAccounts, BufferedReader reader){
         this.bookCollection = bookCollection;
         this.movieCollection = movieCollection;
+        this.userAccounts = userAccounts;
         this.reader = reader;
     }
 
@@ -137,6 +138,10 @@ public class ViewController {
             display(mainMenu);
         } else if (command.trim().equalsIgnoreCase("List Movies")){
             collectionView("movie");
+            display(mainMenu);
+        }
+        else if (command.trim().equalsIgnoreCase("List Movies")){
+            display(user.toString());
             display(mainMenu);
         }
     }

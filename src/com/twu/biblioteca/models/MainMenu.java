@@ -15,6 +15,7 @@ public class MainMenu {
         this.options = new ArrayList<String>();
         options.add("List Books");
         options.add("List Movies");
+        options.add("Account Information");
     }
 
     public List<String> getOptions(){

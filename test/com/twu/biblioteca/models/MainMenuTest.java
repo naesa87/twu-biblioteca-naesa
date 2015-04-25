@@ -17,6 +17,7 @@ public class MainMenuTest {
     public void setUp() throws Exception {
         expectedOptions.add("List Books");
         expectedOptions.add("List Movies");
+        expectedOptions.add("Account Information");
     }
 
     @Test
@@ -31,6 +32,7 @@ public class MainMenuTest {
                 "MAIN MENU OPTIONS\n" +
                 "List Books\n" +
                 "List Movies\n" +
+                "Account Information\n" +
                 "============================================================================================================";
         assertEquals("Incorrect String printout",expectedString, mainMenu.toString());
     }
