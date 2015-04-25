@@ -150,7 +150,7 @@ public class ViewController {
         } else if (command.trim().equalsIgnoreCase("List Movies")){
             collectionView("movie");
             display(mainMenu);
-        } else if (command.trim().equalsIgnoreCase("List Movies")){
+        } else if (command.trim().equalsIgnoreCase("Account Information")){
             display(user.toString());
             display(mainMenu);
         }
