@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.BookCollection;
-import com.twu.biblioteca.models.Library;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
