@@ -19,7 +19,7 @@ public class BibliotecaApp {
         bookCollection = new BookCollection();
         movieCollection = new MovieCollection();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ViewController viewController = new ViewController(bookCollection,reader);
+        ViewController viewController = new ViewController(bookCollection,movieCollection,reader);
         viewController.welcomeView();
         viewController.mainMenuView();
     }

@@ -2,9 +2,7 @@ package com.twu.biblioteca;
 
 import static com.twu.biblioteca.helpers.StringConstants.*;
 import com.twu.biblioteca.helpers.ValidationHelper;
-import com.twu.biblioteca.models.BookCollection;
-import com.twu.biblioteca.models.MainMenu;
-import com.twu.biblioteca.models.User;
+import com.twu.biblioteca.models.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,12 +16,14 @@ public class ViewController {
 
 
     private BookCollection bookCollection;
+    private MovieCollection movieCollection;
     private String customer;
     private User user;
     private BufferedReader reader;
 
-    public ViewController(BookCollection bookCollection, BufferedReader reader){
+    public ViewController(BookCollection bookCollection, MovieCollection movieCollection, BufferedReader reader){
         this.bookCollection = bookCollection;
+        this.movieCollection = movieCollection;
         this.reader = reader;
     }
 
@@ -48,7 +48,6 @@ public class ViewController {
         }
     }
 
-
     public void mainMenuView(){
         display(mainMenu);
         String command;
@@ -70,9 +69,12 @@ public class ViewController {
     }
 
 
-    public void bookCollectionView(){
-        displayAvailableBooks();
-        display(LIBRARY_INSTRUCTIONS);
+    public void collectionView(String bookOrMovie){
+        LibraryCollection currentCollection = bookOrMovie == "book" ?
+                bookCollection : movieCollection;
+        displayAvailableCollection(currentCollection);
+        displayCollectionInstructions(bookOrMovie);
+
         String command;
         try{
             while(true){
@@ -84,12 +86,21 @@ public class ViewController {
                 if (checkForBackRequest(command)) return;
                 if (checkForTwoPartsOfCommand(command)) continue;
 
-                boolean validCommand = executeLibraryCommand(command);
+
+                 boolean validCommand = executeLibraryCommand(command,currentCollection);
                 if(!validCommand) { display(LIBRARY_ERROR); }
             }
         }
         catch (IOException ex){
             System.err.println(ex);
+        }
+    }
+
+    private void displayCollectionInstructions(String bookOrMovie) {
+        if (bookOrMovie == "book"){
+            display(BOOK_COLLECTION_INSTRUCTIONS);
+        } else {
+            display(MOVIE_COLLECTION_INSTRUCTIONS);
         }
     }
 
@@ -103,8 +114,8 @@ public class ViewController {
         System.out.flush();
     }
 
-    private void displayAvailableBooks() {
-        display(bookCollection.getLibraryCollection(true));
+    private void displayAvailableCollection(LibraryCollection libraryCollection) {
+        display(libraryCollection.getLibraryCollection(true));
     }
 
     private void exit(){
@@ -122,28 +133,32 @@ public class ViewController {
 
     private void executeOption(String command) {
         if (command.trim().equalsIgnoreCase("List Books")){
-            bookCollectionView();
+            collectionView("book");
+            display(mainMenu);
+        } else if (command.trim().equalsIgnoreCase("List Movies")){
+            collectionView("movie");
             display(mainMenu);
         }
     }
 
-    private boolean executeLibraryCommand(String command) {
+    private boolean executeLibraryCommand(String command, LibraryCollection currentCollection) {
         String[] commandSplit = command.trim().split(" ", 2);
         String task = commandSplit[0].trim();
-        String book = commandSplit[1].trim();
+        String item = commandSplit[1].trim();
 
         if (task.equalsIgnoreCase("Checkout")){
-            display(bookCollection.checkOutItem(book, customer));
-            displayAvailableBooks();
+            display(currentCollection.checkOutItem(item, customer));
+            displayAvailableCollection(currentCollection);
             return true;
         }
         if (task.equalsIgnoreCase("Return")){
-            display(bookCollection.returnItem(book));
-            displayAvailableBooks();
+            display(currentCollection.returnItem(item));
+            displayAvailableCollection(currentCollection);
             return true;
         }
         return false;
     }
+
 
     private boolean checkForBackRequest(String command) {
         return command.trim().equalsIgnoreCase("Back");

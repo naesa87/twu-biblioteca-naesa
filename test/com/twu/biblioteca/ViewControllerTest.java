@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.models.BookCollection;
+import com.twu.biblioteca.models.MovieCollection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -28,7 +29,8 @@ public class ViewControllerTest {
     private final String LIBRARY_VIEW = "LibraryView";
 
 
-    private BookCollection library = new BookCollection();
+    private BookCollection bookCollection = new BookCollection();
+    private MovieCollection movieCollection = new MovieCollection();
     private String nextInput = System.getProperty("line.separator");
     private ByteArrayInputStream inContent;
     BufferedReader reader;
@@ -136,7 +138,7 @@ public class ViewControllerTest {
 
 
     @Test
-    public void testLibraryViewQuit(){
+    public void tesLibrarytViewQuit(){
         assertEqualsWithExit(expectedLibraryViewQuitOutput);
         executeViewWithInput(LIBRARY_VIEW, quit);
     }
@@ -220,10 +222,10 @@ public class ViewControllerTest {
 
     private void executeViewWithInput(String view, String input) {
         setupInputStream(input);
-        ViewController vc = new ViewController(library, reader);
+        ViewController vc = new ViewController(bookCollection, movieCollection, reader);
         if (view.equalsIgnoreCase(WELCOME_VIEW)) { vc.welcomeView();}
         else if (view.equalsIgnoreCase(MAIN_MENU_VIEW)) { vc.mainMenuView();}
-        else if (view.equalsIgnoreCase(LIBRARY_VIEW)) {vc.bookCollectionView();}
+        else if (view.equalsIgnoreCase(LIBRARY_VIEW)) {vc.collectionView("book");}
     }
 
     private void setupInputStream(String mockInput) {
