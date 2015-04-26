@@ -86,6 +86,27 @@ public class TestStringConstants {
                 "Please choose a menu option\n" +
                 "Thank you. Goodbye!\n";
 
+
+        public static final String expectedMainMenuViewCorrectMoviesOption="============================================================================================================\n" +
+                "MAIN MENU OPTIONS\n" +
+                "List Books\n" +
+                "List Movies\n" +
+                "Account Information\n" +
+                "============================================================================================================\n" +
+                "Please choose a menu option\n" +
+                "============================================================================================================\n" +
+                "LIST OF MOVIES\n" +
+                "NAME                                     AUTHOR                         RATING                YEAR\n" +
+                "Eternal Sunshine of the Spotless Mind    Michel Gondry                  9                     2004\n" +
+                "Fight Club                               David Fincher                  8                     1999\n" +
+                "Mean Girls                               Mark Waters                    9                     2004\n" +
+                "============================================================================================================\n" +
+                "to borrow a movie enter: Checkout \"Movie Name\" (no quotes)\n" +
+                "to return a book enter: Return \"Movie Name\" (no quotes)\n" +
+                "to go back to main menu enter: back\n" +
+                "Please enter a command\n" +
+                "Thank you. Goodbye!\n";
+
         public static final String expectedMainMenuViewCorrectOptionOutput=
                 "============================================================================================================\n" +
                         "MAIN MENU OPTIONS\n" +
@@ -261,4 +282,133 @@ public class TestStringConstants {
                 "to return a book enter: Return \"Book Name\" (no quotes)\n" +
                 "to go back to main menu enter: back\n" +
                 "Please enter a command\n";
+
+        public static final String expectedAccountInformationOutput ="============================================================================================================\n" +
+                "MAIN MENU OPTIONS\n" +
+                "List Books\n" +
+                "List Movies\n" +
+                "Account Information\n" +
+                "============================================================================================================\n" +
+                "Please choose a menu option\n" +
+                "name: John Dorian\n" +
+                "email: jd@gmail.com\n" +
+                "phone: 0420-123-1234\n" +
+                "============================================================================================================\n" +
+                "MAIN MENU OPTIONS\n" +
+                "List Books\n" +
+                "List Movies\n" +
+                "Account Information\n" +
+                "============================================================================================================\n" +
+                "Please choose a menu option\n" +
+                "Thank you. Goodbye!\n";
+
+        public static final String expectedLibraryViewMovieReturnErrorsOutput ="============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+                "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+                "to go back to main menu enter: back\n" +
+                "Please enter a command\n" +
+                "[ Invalid library command ]\n" +
+                "Please enter a command\n" +
+                "[ Book does not exist in library ]\n" +
+                "============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "Please enter a command\n" +
+                "[ Book does not exist in library ]\n" +
+                "============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "Please enter a command\n" +
+                "Thank you. Goodbye!\n";
+
+        public static final String expectedLibraryViewMovieCorrectReturnOutput="============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+                "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+                "to go back to main menu enter: back\n" +
+                "Please enter a command\n" +
+                "[ Book does not exist in library ]\n" +
+                "============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "Please enter a command\n" +
+                "Thank you. Goodbye!\n";
+
+        public static final String expectedLibraryViewMovieCheckoutErrorsOutput="============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+                "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+                "to go back to main menu enter: back\n" +
+                "Please enter a command\n" +
+                "[ Invalid library command ]\n" +
+                "Please enter a command\n" +
+                "[ Book does not exist in library ]\n" +
+                "============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "Please enter a command\n" +
+                "[ Book does not exist in library ]\n" +
+                "============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "Please enter a command\n" +
+                "Thank you. Goodbye!\n";
+        public static final String expectedLibraryViewMovieCorrectCheckoutOutput="============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
+                "to return a book enter: Return \"Book Name\" (no quotes)\n" +
+                "to go back to main menu enter: back\n" +
+                "Please enter a command\n" +
+                "[ Book does not exist in library ]\n" +
+                "============================================================================================================\n" +
+                "LIST OF BOOKS\n" +
+                "NAME                                                         AUTHOR                                     YEAR\n" +
+                "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
+                "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
+                "The Hunger Games                                             Suzanne Collins                            2008\n" +
+                "============================================================================================================\n" +
+                "Please enter a command\n" +
+                "Thank you. Goodbye!\n";
+
 }

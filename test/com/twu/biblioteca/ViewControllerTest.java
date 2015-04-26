@@ -46,11 +46,13 @@ public class ViewControllerTest {
     private String randomLetters = "asdf";
     private String lettersWithSpacesBetween = "as df";
     private String lettersWithSpacesBeforeAfter= "  asdf  ";
+
     private String numbersWrongFormatUserId = "1231234";
     private String correctFormatUserId = "123-1234";
     private String doesNotExistUserId = "222-2222";
     private String password = "password";
     private String wrongPassword = "password123";
+
     private String listBooksTypical = "List Books";
     private String listBooksLowercase = "list books";
     private String listBooksUppercase = "LIST BOOKS";
@@ -67,6 +69,16 @@ public class ViewControllerTest {
     private String returnBookCorrect = "Return The Catcher in the Rye";
     private String returnBookLowercase = "return the catcher in the rye";
     private String returnBookSpaceBeforeAfter = "   Return The Catcher in the Rye    ";
+
+    private String listMovies = "List Movies";
+    private String checkoutMovieNotExist = "Checkout Avengers";
+    private String checkoutMovieNotAvailable = "Checkout The Godfather";
+    private String checkoutMovieCorrect = "Checkout Fight Club";
+    private String returnMovieNotExist = "Return Avengers";
+    private String returnMovieAlreadyReturned = "Return Mean Girls";
+    private String returnMovieCorrect = "Return Fight Club";
+    private String accountInformationCommand = "Account Information";
+
     private String back = "back";
     private String quit = "quit";
 
@@ -136,25 +148,36 @@ public class ViewControllerTest {
     }
 
     @Test
+    public void testMainMenuViewAccountInformationOption(){
+        String requiredEnding = nextInput+quit;
+        assertEqualsWithExit(expectedAccountInformationOutput);
+        executeViewWithInput(MAIN_MENU_VIEW, accountInformationCommand + requiredEnding);
+    }
+
+    @Test
     public void testMainMenuViewListBooksOption(){
-        assertCorrectMainMenuOption(listBooksTypical);
+        assertCorrectListBooksOption(listBooksTypical);
     }
 
     @Test
     public void testMainMenuViewListBooksOptionLowercase(){
-        assertCorrectMainMenuOption(listBooksLowercase);
+        assertCorrectListBooksOption(listBooksLowercase);
     }
 
     @Test
     public void testMainMenuViewListBooksOptionUppercase(){
-        assertCorrectMainMenuOption(listBooksUppercase);
+        assertCorrectListBooksOption(listBooksUppercase);
     }
 
     @Test
     public void testMainMenuViewListBooksOptionWithSpaces(){
-        assertCorrectMainMenuOption(listbooksSpaceBeforeAfter);
+        assertCorrectListBooksOption(listbooksSpaceBeforeAfter);
     }
 
+    @Test
+    public void testMainMenuViewListMoviesOption(){
+        assertCorrectListMoviesOption(listMovies);
+    }
 
 
     @Test
@@ -228,6 +251,39 @@ public class ViewControllerTest {
 
 
     @Test
+    public void testLibraryViewMovieReturnErrors(){
+        assertEqualsWithExit(expectedLibraryViewMovieReturnErrorsOutput);
+        String mockInput=
+                returnNothing+nextInput
+                        +returnMovieNotExist+nextInput
+                        +returnMovieAlreadyReturned+nextInput
+                        +quit;
+        executeViewWithInput(LIBRARY_VIEW, mockInput);
+    }
+
+    @Test
+    public void testLibraryViewCorrectMovieReturnCommand(){
+        assertCorrectLibraryOption(returnMovieCorrect, expectedLibraryViewMovieCorrectReturnOutput);
+    }
+
+    @Test
+    public void testLibraryViewMovieCheckoutErrors(){
+        assertEqualsWithExit(expectedLibraryViewMovieCheckoutErrorsOutput);
+        String mockInput=
+                checkoutNothing+nextInput
+                        +checkoutMovieNotExist+nextInput
+                        +checkoutMovieNotAvailable+nextInput
+                        +quit;
+        executeViewWithInput(LIBRARY_VIEW, mockInput);
+    }
+
+    @Test
+    public void testLibraryViewMovieCorrectCheckoutCommand(){
+        assertCorrectLibraryOption(checkoutMovieCorrect, expectedLibraryViewMovieCorrectCheckoutOutput);
+    }
+
+
+    @Test
     public void testLibraryViewBackCommand(){
         executeViewWithInput(LIBRARY_VIEW, back);
         assertEquals(expectedLibraryViewBackCommandOutput, outContent.toString());
@@ -244,7 +300,7 @@ public class ViewControllerTest {
         setupInputStream(input);
         ViewController vc = new ViewController(bookCollection, movieCollection, userAccounts, reader);
         if (view.equalsIgnoreCase(WELCOME_VIEW)) { vc.welcomeView();}
-        else if (view.equalsIgnoreCase(MAIN_MENU_VIEW)) { vc.mainMenuView();}
+        else if (view.equalsIgnoreCase(MAIN_MENU_VIEW)) { vc.setUser(user); vc.mainMenuView();}
         else if (view.equalsIgnoreCase(LIBRARY_VIEW))
         {
             vc.setUser(user);
@@ -267,12 +323,17 @@ public class ViewControllerTest {
         });
     }
 
-    private void assertCorrectMainMenuOption(String mockInput) {
+    private void assertCorrectListBooksOption(String mockInput) {
         String requiredEnding = nextInput+quit;
         assertEqualsWithExit(expectedMainMenuViewCorrectOptionOutput);
         executeViewWithInput(MAIN_MENU_VIEW, mockInput + requiredEnding);
     }
 
+    private void assertCorrectListMoviesOption(String mockInput) {
+        String requiredEnding = nextInput+quit;
+        assertEqualsWithExit(expectedMainMenuViewCorrectMoviesOption);
+        executeViewWithInput(MAIN_MENU_VIEW, mockInput + requiredEnding);
+    }
     private void assertCorrectLibraryOption(String mockInput, String expectedOutput) {
         String requiredEnding = nextInput+quit;
         assertEqualsWithExit(expectedOutput);
