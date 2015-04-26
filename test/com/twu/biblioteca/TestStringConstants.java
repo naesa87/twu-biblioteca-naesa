@@ -6,7 +6,7 @@ public class TestStringConstants {
             "(to exit application at any time enter: quit)\n" +
             "What's your library user id?:\n" +
             "What's your password?:\n" +
-            "Hi 123-1234\n" +
+            "Hi John Dorian\n" +
             "============================================================================================================\n" +
             "MAIN MENU OPTIONS\n" +
             "List Books\n" +
@@ -41,7 +41,19 @@ public class TestStringConstants {
                 "[ Please type a valid user id with format xxx-xxxx (eg. 123-1234) ]\n" +
                 "What's your library user id?:\n" +
                 "What's your password?:\n"+
-                "Hi 123-1234\n";
+                "Hi John Dorian\n";
+
+        public static final String expectedUserAuthenticationOutput ="WELCOME TO BIBLIOTECA!\n" +
+                "(to exit application at any time enter: quit)\n" +
+                "What's your library user id?:\n" +
+                "What's your password?:\n" +
+                "[ The usedID or password you entered is incorrect. ]\n" +
+                "What's your library user id?:\n" +
+                "What's your password?:\n" +
+                "[ The usedID or password you entered is incorrect. ]\n" +
+                "What's your library user id?:\n" +
+                "What's your password?:\n" +
+                "Hi John Dorian\n";
 
         public static final String expectedMainMenuViewQuitOutput=
                 "============================================================================================================\n" +

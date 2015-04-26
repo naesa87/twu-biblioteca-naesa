@@ -40,7 +40,7 @@ public class ViewController {
                     String password = reader.readLine();
                     user = userAccounts.getUserIfValidPassword(line, password);
                     if (user != null){
-                        display("Hi " + line);
+                        display("Hi " + user.getFullName());
                         return;
                     }else {
                         display(PASSWORD_ERROR);

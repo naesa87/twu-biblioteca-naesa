@@ -48,7 +48,9 @@ public class ViewControllerTest {
     private String lettersWithSpacesBeforeAfter= "  asdf  ";
     private String numbersWrongFormatUserId = "1231234";
     private String correctFormatUserId = "123-1234";
+    private String doesNotExistUserId = "222-2222";
     private String password = "password";
+    private String wrongPassword = "password123";
     private String listBooksTypical = "List Books";
     private String listBooksLowercase = "list books";
     private String listBooksUppercase = "LIST BOOKS";
@@ -82,9 +84,9 @@ public class ViewControllerTest {
     @Test
     public void testWelcomeViewQuit(){
         assertEqualsWithExit("WELCOME TO BIBLIOTECA!\n" +
-                        "(to exit application at any time enter: quit)\n" +
-                        "What's your library user id?:\n" +
-                        "Thank you. Goodbye!\n");
+                "(to exit application at any time enter: quit)\n" +
+                "What's your library user id?:\n" +
+                "Thank you. Goodbye!\n");
         executeViewWithInput(WELCOME_VIEW, quit);
     }
 
@@ -101,6 +103,17 @@ public class ViewControllerTest {
         assertEquals(expectedWelcomeViewOutput, outContent.toString());
     }
 
+    @Test
+    public void testUserIdPasswordAuthentication(){
+        String mockInput = doesNotExistUserId+nextInput
+                    +password+nextInput
+                    +correctFormatUserId+nextInput
+                    +wrongPassword+nextInput
+                    +correctFormatUserId+nextInput
+                    +password;
+        executeViewWithInput(WELCOME_VIEW, mockInput);
+        assertEquals(expectedUserAuthenticationOutput, outContent.toString());
+    }
 
     @Test
     public void testMainMenuViewQuit(){
