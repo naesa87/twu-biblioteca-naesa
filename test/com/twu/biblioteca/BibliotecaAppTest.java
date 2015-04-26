@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.*;
+import static com.twu.biblioteca.TestStringConstants.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,16 +17,13 @@ import static org.junit.Assert.*;
 
 public class BibliotecaAppTest {
 
-    @Rule
-    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
-
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
+
+    @Rule
     public final TextFromStandardInputStream systemInMock = emptyStandardInputStream();
-
-
-
 
     @Before
     public void setUpStreams(){
@@ -54,28 +52,5 @@ public class BibliotecaAppTest {
         });
     }
 
-    private String expectedRunOutput="WELCOME TO BIBLIOTECA!\n" +
-            "(to exit application at any time enter: quit)\n" +
-            "What's your library user id?:\n" +
-            "What's your password?:\n" +
-            "Hi 123-1234\n" +
-            "============================================================================================================\n" +
-            "MAIN MENU OPTIONS\n" +
-            "List Books\n" +
-            "List Movies\n" +
-            "Account Information\n" +
-            "============================================================================================================\n" +
-            "Please choose a menu option\n" +
-            "============================================================================================================\n" +
-            "LIST OF BOOKS\n" +
-            "NAME                                                         AUTHOR                                     YEAR\n" +
-            "The Lord of the Rings                                        J.R.R. Tolkien                             1954\n" +
-            "The Little Prince                                            Antoine de Saint-Exupéry                   1943\n" +
-            "The Hunger Games                                             Suzanne Collins                            2008\n" +
-            "============================================================================================================\n" +
-            "to borrow a book enter: Checkout \"Book Name\" (no quotes)\n" +
-            "to return a book enter: Return \"Book Name\" (no quotes)\n" +
-            "to go back to main menu enter: back\n" +
-            "Please enter a command\n" +
-            "Thank you. Goodbye!\n";
+
 }
